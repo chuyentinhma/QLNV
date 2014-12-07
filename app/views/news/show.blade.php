@@ -1,0 +1,1 @@
+D:\TNT\ktnv2-project\app/views/news/show.blade.php

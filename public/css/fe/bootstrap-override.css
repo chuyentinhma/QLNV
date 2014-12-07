@@ -1,0 +1,48 @@
+.modal-backdrop, .modal-backdrop.fade.in {
+    opacity: 0.1;
+}
+button, a, modal, input, select {
+    border-radius: 2px !important;
+}
+#modal-login {
+    width: 400px;
+    margin-left: -200px;
+}
+#modal-login .controls {
+    margin-left: 100px;
+}
+#modal-login .control-label {
+    width: 70px;
+}
+.modal-footer {
+    background-color: #fff;
+}
+form {
+    margin: 0 0 10px;
+}
+
+#modal-login .modal-header {
+    padding: 5px 15px 0px;
+
+}
+.modal-header {
+    text-transform: capitalize;
+}
+.btn-brow {
+    background: #865B39 !important;
+    color: #fff;
+    text-shadow: none;
+}
+.btn-brow:hover {
+    color: #fff;
+} 
+a:hover, a:focus {
+    outline: none;
+    text-decoration: none;
+}
+.pagination {
+    margin: 2px 0;
+}
+.pagination ul>li>a, .pagination ul>li>span {
+    line-height: 14px;
+}

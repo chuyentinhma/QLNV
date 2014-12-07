@@ -1,0 +1,1 @@
+D:\TNT\ktnv2-project\app/views/kinds/index.blade.php
