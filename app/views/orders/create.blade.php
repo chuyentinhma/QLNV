@@ -25,9 +25,10 @@
                         <h2>Nhập thông tin yêu cầu</h2>
                     </div>
                     <div class='content'>
-
+                        
                         {{ Former::horizontal_open(route('order.add'))->method('POST') }}
                         <div class='span6'>
+                            {{Former::large_text('created_at')->label('Ngày yêu cầu')->class('datepicker')}}
                             {{Former::xlarge_text('number_cv')->label('Số công văn yêu cầu (*)')}}
                             {{Former::select('unit')
                                 ->label('Đơn vị yêu cầu')
@@ -63,7 +64,11 @@
                             </div>
                             {{Former::large_text('date_begin')->label('Ngày bắt đầu')->class('datepicker')}}
                             {{Former::large_text('date_end')->label('Ngày kết thúc')->class('datepicker')}}
-                            {{Former::xlarge_text('username')->label('Người nhận yêu cầu')}}
+                            {{Former::select('uer_get')
+                                ->label('Người nhận yêu cầu')
+                                ->options($users)
+                                ->class('select2')
+                            }}
                             {{Former::textarea('comment')
                                 ->label('Ghi chú')
                                 ->class('input-xlarge editor')

@@ -25,6 +25,7 @@ class OrdersController extends \BaseController {
                 $kinds = Kind::all(['id','symbol']);
                 $categories = Category::all(['id','symbol']);
                 $purposes = Purpose::all(['id','content'])->sortBy('id');
+                $users = User::
                 $allUnit = [];
                 $allKind = [];
                 $allCategory = [];

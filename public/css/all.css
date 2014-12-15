@@ -698,7 +698,7 @@ form{margin: 0px;}
                 .ui-datepicker .ui-state-default{color: #607387; background: #FFF;}
                     .ui-datepicker .ui-state-hover,
                     .ui-datepicker .ui-state-active{background: #607387; color: #FFF;}
-                    .ui-datepicker .ui-state-highlight{background: #fcecd4; color: #607387;}
+                    .ui-datepicker .ui-state-highlight{background: #607387; color: #FFF;}
                     .ui-datepicker-next.ui-state-hover,
                     .ui-datepicker-prev.ui-state-hover{background: #F0F1F2;}
                     
