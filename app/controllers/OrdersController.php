@@ -25,11 +25,12 @@ class OrdersController extends \BaseController {
                 $kinds = Kind::all(['id','symbol']);
                 $categories = Category::all(['id','symbol']);
                 $purposes = Purpose::all(['id','content'])->sortBy('id');
-                $users = User::
+                $users = User::all(['id','username']);
                 $allUnit = [];
                 $allKind = [];
                 $allCategory = [];
                 $allPurpose = [];
+                $allUser = [];
                 foreach ($units as $unit) {
                     $allUnit[$unit->id] = $unit->symbol;
                 }
@@ -42,7 +43,10 @@ class OrdersController extends \BaseController {
                 foreach ($purposes as $purpose) {
                     $allPurpose[$purpose->id] = $purpose->content;
                 }
-		return View::make('orders.create',array('units'=>$allUnit,'kinds'=>$allKind, 'categories' => $allCategory, 'purposes' => $allPurpose));
+                foreach ($users as $user) {
+                    $allUser[$user->id] = $user->username;
+                }
+		return View::make('orders.create',array('units'=>$allUnit,'kinds'=>$allKind, 'categories' => $allCategory, 'purposes' => $allPurpose, 'users' => $allUser));
 	}
 
 	/**
@@ -52,14 +56,16 @@ class OrdersController extends \BaseController {
 	 */
 	public function store()
 	{
-		$validator = Validator::make($data = Input::all(), Order::$rules);
-
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
-
-		Order::create($data);
+//                echo "da vao day";
+//                die;
+//		$validator = Validator::make($data = Input::all(), Order::$rules);
+//                var_dump($data);
+//		if ($validator->fails())
+//		{
+//			return Redirect::back()->withErrors($validator)->withInput();
+//		}
+//
+//		Order::create($data);
 
 		return Redirect::route('orders.index');
 	}

@@ -24,11 +24,11 @@ Route::group(array('before' => 'auth'), function() {
     
     Route::get('profile', array('as' => 'profile', 'uses' => 'UserController@profile'));
     
-    Route::get('orders/detail', array('as' => 'order.detail', 'uses' => 'OrdersController@index'));
+    Route::get('orders/index', array('as' => 'orders.index', 'uses' => 'OrdersController@index'));
     
-    Route::get('orders/add', array('as' => 'order.add', 'uses' => 'OrdersController@create'));
+    Route::get('orders/add', array('as' => 'orders.add', 'uses' => 'OrdersController@create'));
     
-    Route::post('orders/add', array('as' => 'order.add', 'uses' => 'OrdersController@store'));
+    Route::post('orders/add', array('as' => 'orders.add', 'uses' => 'OrdersController@store'));
     
     Route::get('ships/detail', array('as' => 'ship.detail', 'uses' => 'ActionController@index'));
     

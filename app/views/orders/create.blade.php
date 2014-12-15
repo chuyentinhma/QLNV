@@ -8,7 +8,7 @@
         <div class='page-tools'>
             <ul>
                 <li>
-                    <a class='btn btn-small' href='{{route('order.detail')}}'>
+                    <a class='btn btn-small' href='{{route('orders.index')}}'>
                         <i class='i-reply'></i>
                         Danh sách yêu cầu
                     </a>
@@ -26,7 +26,7 @@
                     </div>
                     <div class='content'>
                         
-                        {{ Former::horizontal_open(route('order.add'))->method('POST') }}
+                        {{ Former::horizontal_open(route('orders.add'))->method('POST')->id('form_order') }}
                         <div class='span6'>
                             {{Former::large_text('created_at')->label('Ngày yêu cầu')->class('datepicker')}}
                             {{Former::xlarge_text('number_cv')->label('Số công văn yêu cầu (*)')}}
@@ -64,7 +64,7 @@
                             </div>
                             {{Former::large_text('date_begin')->label('Ngày bắt đầu')->class('datepicker')}}
                             {{Former::large_text('date_end')->label('Ngày kết thúc')->class('datepicker')}}
-                            {{Former::select('uer_get')
+                            {{Former::select('user_get')
                                 ->label('Người nhận yêu cầu')
                                 ->options($users)
                                 ->class('select2')
@@ -83,21 +83,22 @@
             <div class="space"></div>
             <div class='footer'>
                 <div class='text-center'>
+                    
                     <button class='btn' type="reset">
                         <i class='i-ccw'></i>
                         Nhập lại
                     </button>
-                    <button class='btn btn-success btn-save-book' data-redirect="create" type="button">
+                    <button class='btn btn-success btn-save-book' data-redirect="create" type="submit">
                         <i class='i-checkmark-2'></i>
                         Lưu và tiếp tục
                     </button>
-                    <button class='btn btn-primary btn-save-book' data-redirect="index" type="button">
+                    <button class='btn btn-primary btn-save-book' data-redirect="index" type="submit">
                         <i class='icon-book'></i>
                         Lưu và trở lại danh sách
                     </button>
                 </div>
             </div>
-            <?php echo Former::close() ?>
+            {{ Former::close() }}
         </div>
     </div>
 

@@ -26,10 +26,10 @@
             <a href='#'>Sổ nhận yêu cầu</a>
             <ul>
                 <li class=''>
-                    <a href='{{route('order.detail')}}'>Danh sách yêu cầu</a>
+                    <a href='{{route('orders.index')}}'>Danh sách yêu cầu</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('order.add')}}'>Thêm mới yêu cầu</a>
+                    <a href='{{route('orders.add')}}'>Thêm mới yêu cầu</a>
                 </li>
             </ul>
         </li>
