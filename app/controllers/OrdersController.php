@@ -56,16 +56,15 @@ class OrdersController extends \BaseController {
 	 */
 	public function store()
 	{
-//                echo "da vao day";
-//                die;
-//		$validator = Validator::make($data = Input::all(), Order::$rules);
-//                var_dump($data);
-//		if ($validator->fails())
-//		{
-//			return Redirect::back()->withErrors($validator)->withInput();
-//		}
-//
-//		Order::create($data);
+
+		$validator = Validator::make($data = Input::all(), Order::$rules);
+               
+		if ($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+
+		Order::create($data);
 
 		return Redirect::route('orders.index');
 	}

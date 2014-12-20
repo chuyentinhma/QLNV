@@ -159,3 +159,6 @@ ul.pagination {
 .dl-horizontal dt{
 	width: 250px !important;
 }
+.checkbox.inline+.checkbox.inline{
+    margin-left: 40px;
+}

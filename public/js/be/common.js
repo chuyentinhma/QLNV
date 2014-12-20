@@ -13,10 +13,21 @@ $(function() {
     /* width:resolve option for makes select2 same width with select tag*/
     $(".select2").each(function() {
         options = {
-            width: 'resolve'
+            width: '224px'
         };
         if ($(this).attr('data-no-search'))
             options['minimumResultsForSearch'] = -1; // Hide the seach box
+        if ($(this).attr('tags')) {
+            options = {
+                tags: [],
+                width: '224px',
+                dropdownCssClass: 'select2-hidden',
+                tokenSeparators: [",", " "],
+                formatNoMatches: function() {
+                    return '';
+                },
+            }
+        }
         $(this).select2(options);
     });
 
