@@ -25,7 +25,7 @@ $(function() {
                 tokenSeparators: [",", " "],
                 formatNoMatches: function() {
                     return '';
-                },
+                }
             }
         }
         $(this).select2(options);

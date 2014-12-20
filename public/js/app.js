@@ -7,7 +7,7 @@ AppConfig = {
 		showOtherMonths: true,
 		dateFormat: 'dd/mm/yy',
 		numberOfMonths: 1,
-		yearRange: "-70:+0",
+		yearRange: "-10:+16",
 		dayNames: ['Chủ Nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'],
 		dayNamesShort: ['Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'],
 		dayNamesMin: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
