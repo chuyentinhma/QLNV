@@ -1,107 +1,126 @@
 <?php
 
+use Impl\Repo\Unit\UnitInterface;
+use Impl\Service\Form\Unit\UnitForm;
+use Impl\Service\Validation\ValidationException;
+
 class UnitsController extends \BaseController {
 
-	/**
-	 * Display a listing of units
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$units = Unit::all();
+    protected $unit;
+    protected $unitForm;
 
-		return View::make('units.index', compact('units'));
-	}
+    public function __construct(UnitInterface $unit, UnitForm $unitForm) {
 
-	/**
-	 * Show the form for creating a new unit
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		return View::make('units.create');
-	}
+        $this->unit = $unit;
+        $this->unitForm = $unitForm;
+    }
 
-	/**
-	 * Store a newly created unit in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$validator = Validator::make($data = Input::all(), Unit::$rules);
+    /**
+     * Display a listing of units
+     *
+     * @return Response
+     */
+    public function index() {
+        $page = Input::get('page', 1);
+        // Candidate for config item
+        $perPage = 3;
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+        $pagiData = $this->unit->byPage($page, $perPage);
+        $units = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);
 
-		Unit::create($data);
+        return View::make('units.index', compact('units'));
+    }
 
-		return Redirect::route('units.index');
-	}
+    /**
+     * Show the form for creating a new unit
+     *
+     * @return Response
+     */
+    public function create() {
+        return View::make('units.create');
+    }
 
-	/**
-	 * Display the specified unit.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$unit = Unit::findOrFail($id);
+    /**
+     * Store a newly created unit in storage.
+     *
+     * @return Response
+     */
+    public function store() {
 
-		return View::make('units.show', compact('unit'));
-	}
+        // Form processing
+        try {
 
-	/**
-	 * Show the form for editing the specified unit.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$unit = Unit::find($id);
+            $this->unitForm->create(Input::all());
+            if (Input::get('redirect') == '1') {
+//                // coutinue
+                return Redirect::route('units.create')->with('success', 'Tạo mới thành công');
+            }
+            return Redirect::route('units.index')->with('success', 'Tạo mới thành công');
+        } catch (ValidationException $ex) {
 
-		return View::make('units.edit', compact('unit'));
-	}
+            return Redirect::back()->withInput()->withErrors($ex->getErrors())->with('error', 'Đã xảy ra lỗi');
+        }
+    }
 
-	/**
-	 * Update the specified unit in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$unit = Unit::findOrFail($id);
+    /**
+     * Display the specified unit.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+        
+        $unit = Unit::findOrFail($id);
 
-		$validator = Validator::make($data = Input::all(), Unit::$rules);
+        return View::make('units.show', compact('unit'));
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Show the form for editing the specified unit.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
 
-		$unit->update($data);
+        $unit = Unit::find($id);
 
-		return Redirect::route('units.index');
-	}
+        return View::make('units.edit', compact('unit'));
+    }
 
-	/**
-	 * Remove the specified unit from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Unit::destroy($id);
+    /**
+     * Update the specified unit in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
 
-		return Redirect::route('units.index');
-	}
+        $input = array_merge(Input::all(), array('id' => $id));
+        
+        try {
+            
+            $this->unitForm->update($input);
+            
+        } catch (ValidationException $ex) {
+
+            return Redirect::back()->withInput()->withErrors($ex->getErrors())->with('error','Đã xảy ra lỗi');
+        }
+
+        return Redirect::route('units.index');
+    }
+
+    /**
+     * Remove the specified unit from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+        
+        Unit::destroy($id);
+
+        return Redirect::back();
+    }
 
 }

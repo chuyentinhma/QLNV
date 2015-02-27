@@ -17,6 +17,7 @@ class CreateUnitsTable extends Migration {
 			$table->increments('id');
                         $table->string('symbol')->unique();
                         $table->string('name');
+                        $table->string('block');
 			$table->timestamps();
 		});
 	}

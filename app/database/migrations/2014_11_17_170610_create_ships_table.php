@@ -21,7 +21,12 @@ class CreateShipsTable extends Migration {
             $table->foreign('customer_id')
                     ->references('id')->on('customers')
                     ->onDelete('cascade');
-            $table->integer('amount');
+            $table->string('receive_name');
+            $table->string('receive_phone');
+            $table->integer('number_cv_pa71');
+            $table->integer('page_number');
+            $table->integer('news_number');
+            $table->timestamp('date_submit');
             $table->timestamps();
         });
     }

@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Ho_Chi_Minh',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -122,7 +122,10 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
                 'Former\FormerServiceProvider',
-                'Way\Generators\GeneratorsServiceProvider'
+                'Way\Generators\GeneratorsServiceProvider',
+                'Impl\Repo\RepoServiceProvider',
+                'Impl\Service\Form\FormServiceProvider',
+                'Barryvdh\Debugbar\ServiceProvider'
             
 
 	),
@@ -192,6 +195,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
                 'Former'          => 'Former\Facades\Former',
+                'Debugbar'        => 'Barryvdh\Debugbar\Facade'
 
 
 	),

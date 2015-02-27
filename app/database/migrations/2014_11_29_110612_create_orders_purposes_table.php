@@ -14,7 +14,7 @@ class CreateOrdersPurposesTable extends Migration {
 	{
 		Schema::create('orders_purposes', function(Blueprint $table)
 		{
-//			$table->increments('id');
+			$table->increments('id');
                         $table->integer('order_id');
                         $table->integer('purpose_id');
 			$table->timestamps();

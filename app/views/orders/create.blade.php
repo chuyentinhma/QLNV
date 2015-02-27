@@ -1,4 +1,11 @@
 @extends('layouts.admin')
+@section('css')
+
+<link media="all" rel="stylesheet" type="text/css" href="{{{ asset('css/select2.css') }}}"/>
+<link media="all" rel="stylesheet" type="text/css" href="{{{ asset('css/addon.css') }}}"/>
+
+@stop
+
 @section('content')
 <div class="wrap">
     <div class='head'>
@@ -18,6 +25,7 @@
     </div>
     <div class='content'>
         <div class='row-fluid'>
+            @include('partials.flash')
             <div class='span12'>
                 <!-- <div class='span6'>-->
                 <div class='block'>
@@ -40,7 +48,7 @@
                             {{Former::text('customer_phone_number')->label('Số điện thoại ĐT (*)')->class('select2')->setAttribute('tags', '1')}}
                             {{Former::large_text('order_name')->label('Tên trinh sát(*)')}}
                             {{Former::large_text('order_phone_number')->label('Số điện thoại TS (*)')}}
-                          
+
                         </div>
                         <div class='span7'>
                             {{Former::select('category')
@@ -53,7 +61,16 @@
                                 ->options($kinds)
                                 ->class('select2')
                             }}
-                            {{Former::checkboxes('Nội dung yêu cầu')->checkboxes($purposes)->inline()}}
+                            <div class="control-group">
+                                <label for="purpose" class="control-label">Nội dung yêu cầu</label>
+                                <div class="controls">
+                                    <?php foreach ($purposes as $k => $v): ?>
+                                        <label  class="checkbox inline">                                
+                                            <input type="checkbox" name="purpose[]"   value="<?php echo $k ?>"><?php echo $v ?>
+                                        </label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
                             {{Former::large_text('date_begin')->label('Ngày bắt đầu')->class('datepicker')}}
                             {{Former::large_text('date_end')->label('Ngày kết thúc')->class('datepicker')}}
                             {{Former::select('user_get')
@@ -80,11 +97,11 @@
                         <i class='i-ccw'></i>
                         Nhập lại
                     </button>
-                    <button class='btn btn-success btn-save-book' data-redirect="create" type="submit">
+                    <button class='btn btn-success btn-save-book' name="redirect" value="1" type="submit">
                         <i class='i-checkmark-2'></i>
                         Lưu và tiếp tục
                     </button>
-                    <button class='btn btn-primary btn-save-book' data-redirect="index" type="submit">
+                    <button class='btn btn-primary btn-save-book' name="redirect" value="0" type="submit">
                         <i class='icon-book'></i>
                         Lưu và trở lại danh sách
                     </button>
@@ -95,4 +112,18 @@
     </div>
 
 </div>
+
+@stop
+
+@section('javascript')
+
+<script type="text/javascript" src="{{{asset('js/plugins/bootbox.min.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/plugins/jquery.validate.min.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/plugins/tinymce/tinymce.min.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/plugins/select2.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/helper.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/app.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/be/common.js')}}}"></script>
+
+
 @stop

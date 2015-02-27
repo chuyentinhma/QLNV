@@ -37,10 +37,10 @@
             <a href='#'>Sổ thực hiện yêu cầu</a>
             <ul>
                 <li class=''>
-                    <a href='{{route('ship.detail')}}'>Chi tiết...</a>
+                    <a href='{{route('ships.index')}}'>Chi tiết...</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('ship.update')}}'>Cập nhật yêu cầu đã thực hiện</a>
+                    <a href='{{route('ships.create')}}'>Cập nhật yêu cầu đã thực hiện</a>
                 </li>
             </ul>
         </li>
@@ -62,13 +62,27 @@
             <a href='#'>Quản trị hệ thống</a>
             <ul>
                 <li class=''>
-                    <a href='#'>Cài đặt</a>
-                </li>
-                <li class=''>
                     <a href='#'>Quản lý user</a>
                 </li>
                 <li class=''>
                     <a href='#'>Nhật ký sử dụng</a>
+                </li>
+            </ul>
+        </li>
+        <li class='openable open'>
+            <a href='#'>Cài đặt</a>
+            <ul>
+                <li class=''>
+                    <a href='{{route('units.index')}}'>Đơn vị yêu cầu</a>
+                </li>
+                <li class=''>
+                    <a href='{{route('categories.index')}}'>Loại đối tượng</a>
+                </li>
+                <li class=''>
+                    <a href='{{route('kinds.index')}}'>Tính chất vụ án</a>
+                </li>
+                <li class=''>
+                    <a href='{{route('purposes.index')}}'>Nội dung yêu cầu</a>
                 </li>
             </ul>
         </li>

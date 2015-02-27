@@ -1,133 +1,175 @@
 <?php
 
+use Impl\Repo\Order\OrderInterface;
+use Impl\Service\Form\Order\OrderForm;
+use Impl\Service\Validation\ValidationException;
+use Impl\Repo\Unit\UnitInterface;
+use Impl\Repo\Kind\KindInterface;
+use Impl\Repo\Category\CategoryInterface;
+use Impl\Repo\Purpose\PurposeInterface;
+use Impl\Repo\User\UserInterface;
+
+//use Illuminate\Support\Facades\View;
+
 class OrdersController extends \BaseController {
 
-	/**
-	 * Display a listing of orders
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		$orders = Order::all();
+    protected $order;
+    protected $unit;
+    protected $kind;
+    protected $category;
+    protected $purpose;
+    protected $user;
+    protected $orderForm;
 
-		return View::make('orders.index', compact('orders'));
-	}
+    public function __construct(OrderInterface $order, UnitInterface $unit, KindInterface $kind, CategoryInterface $category, PurposeInterface $purpose, UserInterface $user, OrderForm $orderForm) {
 
-	/**
-	 * Show the form for creating a new order
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-                $units = Unit::all(['id','symbol']);
-                $kinds = Kind::all(['id','symbol']);
-                $categories = Category::all(['id','symbol']);
-                $purposes = Purpose::all(['id','content'])->sortBy('id');
-                $users = User::all(['id','username']);
-                $allUnit = [];
-                $allKind = [];
-                $allCategory = [];
-                $allPurpose = [];
-                $allUser = [];
-                foreach ($units as $unit) {
-                    $allUnit[$unit->id] = $unit->symbol;
-                }
-                foreach ($kinds as $kind) {
-                    $allKind[$kind->id] = $kind->symbol;
-                }
-                foreach ($categories as $category) {
-                    $allCategory[$category->id] = $category->symbol;
-                }
-                foreach ($purposes as $purpose) {
-                    $allPurpose[$purpose->id] = $purpose->content;
-                }
-                foreach ($users as $user) {
-                    $allUser[$user->id] = $user->username;
-                }
-		return View::make('orders.create',array('units'=>$allUnit,'kinds'=>$allKind, 'categories' => $allCategory, 'purposes' => $allPurpose, 'users' => $allUser));
-	}
+        $this->order = $order;
+        $this->unit = $unit;
+        $this->kind = $kind;
+        $this->category = $category;
+        $this->purpose = $purpose;
+        $this->user = $user;
+        $this->orderForm = $orderForm;
 
-	/**
-	 * Store a newly created order in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
+        View::composer(['orders.create', 'orders.edit'], function ($view) {
 
-		$validator = Validator::make($data = Input::all(), Order::$rules);
-               
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+            $units = $this->unit->formatData($this->unit->all());
+            $kinds = $this->kind->formatData($this->kind->all());
+            $categories = $this->category->formatData($this->category->all());
+            $purposes = $this->purpose->formatData($this->purpose->all());
+            $users = $this->user->formatData($this->user->all());
 
-		Order::create($data);
+            $view->with(array('units' => $units,
+                'kinds' => $kinds,
+                'categories' => $categories,
+                'purposes' => $purposes,
+                'users' => $users
+            ));
+        });
+    }
 
-		return Redirect::route('orders.index');
-	}
+    /**
+     * Display a listing of orders
+     *
+     * @return Response
+     */
+    public function index() {
 
-	/**
-	 * Display the specified order.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		$order = Order::findOrFail($id);
+        $page = Input::get('page', 1);
+        // Candidate for config item
+        $perPage = 3;
 
-		return View::make('orders.show', compact('order'));
-	}
+        $pagiData = $this->order->byPage($page, $perPage, true);
 
-	/**
-	 * Show the form for editing the specified order.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		$order = Order::find($id);
+        $orders = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);
 
-		return View::make('orders.edit', compact('order'));
-	}
+        return View::make('orders.index')->with('orders', $orders);
+    }
 
-	/**
-	 * Update the specified order in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		$order = Order::findOrFail($id);
+    /**
+     * Show the form for creating a new order
+     *
+     * @return Response
+     */
+    public function create() {
 
-		$validator = Validator::make($data = Input::all(), Order::$rules);
+        return View::make('orders.create');
+    }
 
-		if ($validator->fails())
-		{
-			return Redirect::back()->withErrors($validator)->withInput();
-		}
+    /**
+     * Store a newly created order in storage.
+     *
+     * @return Response
+     */
+    public function store() {
 
-		$order->update($data);
+        // Form processing
+        try {
 
-		return Redirect::route('orders.index');
-	}
+            $this->orderForm->create(Input::all());
+            if (Input::get('redirect') == '1') {
+//                // coutinue
+                return Redirect::route('orders.add')->with('success', 'Tạo mới thành công 1 yêu cầu');
+            }
+            return Redirect::route('orders.index')->with('success', 'Tạo mới thành công 1 yêu cầu');
+        } catch (ValidationException $ex) {
 
-	/**
-	 * Remove the specified order from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		Order::destroy($id);
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+    }
 
-		return Redirect::route('orders.index');
-	}
+    /**
+     * Display the specified order.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($id) {
+
+        $order = $this->order->byId($id);
+
+        return View::make('orders.show', compact('order'));
+    }
+
+    /**
+     * Show the form for editing the specified order.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($id) {
+
+        $order = $this->order->byId($id);
+
+        return View::make('orders.edit', compact('order'));
+    }
+
+    /**
+     * Update the specified order in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id) {
+
+        $input = array_merge(Input::all(), array('id' => $id));
+        try {
+            $this->orderForm->update($input);
+        } catch (ValidationException $ex) {
+
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
+        }
+
+        return Redirect::route('orders.index');
+    }
+
+    /**
+     * Search the specified order in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function search() {
+        $keyword = Input::get('keyword');
+        $page = Input::get('page', 1);
+        // Candidate for config item
+        $perPage = 3;
+        $pagiData = $this->order->searchName($page, $perPage, $keyword);
+        $orders = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);
+        return View::make('orders.search')->with(array('orders'=> $orders,'keyword' =>$keyword));
+    }
+
+    /**
+     * Remove the specified order from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id) {
+
+        Order::destroy($id);
+
+        return Redirect::back();
+    }
 
 }

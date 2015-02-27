@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
                 "anahkiasen/former": "dev-master",
-		"fzaninotto/faker": "~1.4"
+		"fzaninotto/faker": "~1.4",
+                "barryvdh/laravel-debugbar": "1.8"
 	},
         "require-dev": {
                 "way/generators": "~2.0"
@@ -19,7 +20,10 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+                "psr-0": {
+                    "Impl": "app"
+                }
 	},
 	"scripts": {
 		"post-install-cmd": [

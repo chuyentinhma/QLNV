@@ -17,7 +17,7 @@ class CreateCustomersTable extends Migration {
             $table->foreign('order_id')
                     ->references('id')->on('orders')
                     ->onDelete('cascade');
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->string('status');
             $table->timestamps();
         });

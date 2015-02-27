@@ -1,4 +1,7 @@
 (function($) {
+        $('.checkbox').on('click', function () {
+            alert($(this).val());
+        });
 	$('[btn-confirm="confirm"]').on('click', function() {
 		var dataConfirm = $(this).attr('data-confirm');
 		console.log(dataConfirm);

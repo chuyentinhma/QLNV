@@ -29,19 +29,18 @@ class CreateOrdersTable extends Migration {
             $table->foreign('unit_id')
                     ->references('id')->on('units')
                     ->onDelete('cascade');
-//            $table->integer('purpose_id')->unsigned();
-//            $table->foreign('purpose_id')
-//                    ->references('id')->on('purposes')
-//                    ->onDelete('cascade');
             $table->string('customer_name');
             $table->string('order_name');
-            $table->integer('order_phone');
+            $table->string('order_phone');
             $table->integer('number_cv');
             $table->integer('number_cv_pa71');
             $table->text('comment')->nullable();
+            $table->string('slug');
+            $table->timestamp('date_submit');
             $table->timestamp('date_begin');
             $table->timestamp('date_end');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
