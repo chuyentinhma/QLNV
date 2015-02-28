@@ -109,15 +109,18 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         return $result;
     }
 
-    public function searchName($page = 1, $limit = 10, $keysearch) {
+    public function searchName($keysearch, $page = 1, $limit = 10) {
         $result = new \StdClass;
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
         $result->items = array();
-        $query = $this->order->where('customer_name','like','%'.$keysearch.'%')
-                ->orderBy('created_at', 'desc');
+        $query = $this->order->orderBy('date_submit', 'desc');
         
+        if($keysearch != '') {
+            $query = $query->where('customer_name','like','%'.$keysearch.'%');
+        }
+        $result->totalItems = $query->count();
         $orders = $query->skip($limit * ($page - 1))
                 ->take($limit)
                 ->get();

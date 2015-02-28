@@ -26,16 +26,24 @@
 		init: function() {
 			this.$tableContainer.each(function() {
 				$container = $(this);
+                                // select number of rows on perPage
+                                $(this).on('change','.perPage',function() {
+                                    $('.table-search-input').trigger('change');
+                                });
                                 //ajax pagination
 				$(this).on('click', '.ajax a', function() {
 					$paging = $(this);
+                                        searchParmas = {};
+                                        searchParmas.keyword = $('.table-search-input').val();
+                                        searchParmas.perPage = $('.perPage :selected').text();
 					//call ajax to get html content for paging
 					$.ajax({
 						url: $(this).attr('href'),
-						data: null,
+						data: searchParmas,
 						type: "GET",
 						success: function(result) {
 							$paging.parents(tableHandle.contanerClass).html(result);
+                                                        $(".perPage option:contains("+ searchParmas.perPage + ")").attr('selected', true);
 						},
 						error: function() {
 							bootbox.alert('Đã có lỗi xảy ra, vui lòng đăng nhập lại');
@@ -52,6 +60,8 @@
 					dataUrl = $(this).attr('data-url');
 					//add keyword to search params
 					searchParmas.keyword = $(this).val();
+                                        searchParmas.perPage = $('.perPage :selected').text();
+                                        console.log(searchParmas);
 					for (k in this.attributes) {
 						//get attributes that need to search, to build paramaters for search query
 						if (typeof (this.attributes[k].value) !== 'undefined' && $.inArray(this.attributes[k].name, ignoreArr) === -1) {
@@ -67,6 +77,7 @@
 						data: searchParmas,
 						success: function(result) {
 							$input.parents(tableHandle.contanerClass).html(result);
+                                                        $(".perPage option:contains("+ searchParmas.perPage + ")").attr('selected', true);
         
 						},
 						error: function() {

@@ -64,12 +64,12 @@
                                 <td rowspan="{{count($order->customers)}}">{{$order->number_cv_pa71}}</td>
                                 <td rowspan="{{count($order->customers)}}"><a href="{{ URL::to('orders/show/' . $order->id ) }}">{{$order->customer_name}}</a></td>
                                 <td>
-                                 @foreach ($order->customers as $index => $customer)
-                                 @if(++$index <= 1)
+                                    @foreach ($order->customers as $index => $customer)
+                                    @if(++$index <= 1)
                                     {{ $customer->phone_number }}
-                                 @endif
-                                  @endforeach
-                                   
+                                    @endif
+                                    @endforeach
+
                                 </td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->category->symbol}}</td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->kind->symbol}}</td>
@@ -109,11 +109,20 @@
                         <img src="{{asset('img/loading.gif')}}"/>
                         Đang tải . . .
                     </span>
-                    <div class='side fr'>
-                        <div class='pagination'>
-                            {{ $orders->links() }}
-                        </div>
+                    <div class="pull-left">
+                        <span>Số bản ghi tối đa trên một trang:</span>
+                        <select class=" perPage" id="sel1" style="margin-top: 5px">
+                            <option>5</option>
+                            <option>10</option>
+                            <option>20</option>
+                            <option>40</option>
+                        </select>
                     </div>
+                    <!--<div class='side fr'>-->
+                    <div class='pull-right pagination'>
+                        {{ $orders->links() }}
+                    </div>
+                    <!--</div>-->
                 </div>
             </div>
         </div>

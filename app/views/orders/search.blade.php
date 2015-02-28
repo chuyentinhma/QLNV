@@ -1,6 +1,6 @@
 <div class='block table-container'>
     <div class='head'>
-        <h2>Tìm thấy {{count($orders)}} kết quả</h2>
+        <h2>Tổng số {{$orders->getTotal()}} yêu cầu </h2>
         <div class='toolbar-table-right'>
             <div class='input-append'>
                 <input placeholder='Tìm kiếm ...' type="text" value="<?php echo isset($keyword) ? $keyword : '' ?>" class="table-search-input"  data-url="{{route('search')}}">
@@ -86,27 +86,36 @@
             <img src="{{asset('img/loading.gif')}}"/>
             Đang tải . . .
         </span>
-        <div class='side fr'>
-            <div class='pagination ajax'>
-                {{ $orders->links() }}
-            </div>
+        <!--<div class='side fr'>-->
+        <div class="pull-left">
+            <span>Số bản ghi tối đa trên một trang:</span>
+            <select class=" perPage" data-url="{{route('orders.index')}}" id="sel1" style="margin-top: 5px">
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>40</option>
+            </select>
         </div>
+        <div class='pull-right pagination ajax'>
+            {{ $orders->links() }}
+        </div>
+        <!--</div>-->
     </div>
 </div>
 <script>
-        $('[btn-confirm="confirm"]').on('click', function() {
-		var dataConfirm = $(this).attr('data-confirm');
-		if (typeof dataConfirm === "undefined") {
-			dataConfirm = "Bạn có chắc chắn ?";
-		}
-		var dataUrl = $(this).attr('data-url');
-		bootbox.confirm(dataConfirm, 'Hủy bỏ', 'Đồng ý', function(result) {
-			if (result) {
-				location.href = dataUrl;
-			}
-		});
-		return false;
-	});
-    </script>
-    
+    $('[btn-confirm="confirm"]').on('click', function () {
+        var dataConfirm = $(this).attr('data-confirm');
+        if (typeof dataConfirm === "undefined") {
+            dataConfirm = "Bạn có chắc chắn ?";
+        }
+        var dataUrl = $(this).attr('data-url');
+        bootbox.confirm(dataConfirm, 'Hủy bỏ', 'Đồng ý', function (result) {
+            if (result) {
+                location.href = dataUrl;
+            }
+        });
+        return false;
+    });
+</script>
+
 
