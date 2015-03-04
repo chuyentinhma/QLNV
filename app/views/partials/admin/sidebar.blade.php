@@ -48,7 +48,7 @@
             <a href='#'>Thao tác</a>
             <ul>
                 <li class=''>
-                    <a href='#'>Báo cáo, thống kê</a>
+                    <a href='{{route('statistic')}}'>Báo cáo, thống kê</a>
                 </li>
                 <li class=''>
                     <a href='#'>Tìm kiếm</a>

@@ -1,6 +1,13 @@
 <div class='block table-container'>
     <div class='head'>
-        <h2>Tổng số {{$orders->getTotal()}} yêu cầu </h2>
+        <div class="pull-left">
+            <span>Hiển thị:</span>
+            <select class="listPurpose" id="sel1" style="margin-top: 5px">  
+                <option>Tất cả</option>
+                <option>DS Giám sát</option>
+                <option>DS List</option>
+            </select>
+        </div>
         <div class='toolbar-table-right'>
             <div class='input-append'>
                 <input placeholder='Tìm kiếm ...' type="text" value="<?php echo isset($keyword) ? $keyword : '' ?>" class="table-search-input"  data-url="{{route('search')}}">
