@@ -17,32 +17,30 @@
         <div class='row-fluid'>
             <div class='block'>
                 <div class='content'>
-                    <form class="" method="GET">
-                        <div class="controls-row">
-                            <label class="span1">Thời gian</label>
-                            <select name="time" class="span2 select2 statistics-select-time">
-                                
-                                <option value="week" >Tuần này</option>
-                                <option value="month" >Tháng này</option>
-                                <option value="quarter">Quý này</option>
-                                <option value="year">Năm này</option>
-                                <option value="custom" >Khoảng thời gian</option>
-                            </select>
-                            <button class="btn btn-primary offset1">Xem thống kê</button>
-                            <a href=""
-                               class="btn btn-success margin-10 btn-print"
+                    <div class="row-fluid">
+                        <div class="span1">
+                            <label for="date_begin">Ngày bắt đầu</label>
+                        </div>
+                        <div class="span2">
+                            <input class="datepicker" id="date_begin" type="text" name="date_begin">
+                        </div>
+                        <div class="span1 offset1">
+                            <label for="date_end">Ngày kết thúc</label>
+                        </div>
+                        <div class="span2">
+                             <input class="datepicker" id="date_end" type="text" name="date_end">
+                        </div>
+                        <div class="span2">
+                            <button class="btn btn-primary offset5">Xem thống kê</button>
+                        </div>
+                        <div class="span2">
+                              <a href=""
+                               class="btn btn-success offset0 btn-print"
                                target="_blank">
                                 <i class="i-printer"></i> In báo cáo
                             </a>
                         </div>
-                        <div class="controls-row custom-select-time" style="display:none;" >
-                            <label class="span1">Từ ngày</label>
-                            <input class="datepicker span2" type="text" name="start" value=""/>
-                            <div class="span1"></div>
-                            <label class="span1">Đến ngày</label>
-                            <input class="datepicker span2" type="text" name="end" value=""/>
-                        </div>
-                    </form>                    
+                    </div> 
                     @include('partials.flash')
                     <hr>
                     
