@@ -23,20 +23,22 @@
         <div class='row-fluid'>
             <div class='block table-container'>
                 <div class='head'>
-                    <div class="pull-left">
-                        <span>Hiển thị:</span>
-                        <select class="listPurpose" id="sel1" style="margin-top: 5px">  
-                            <option>Tất cả</option>
-                            <option>DS Giám sát</option>
-                            <option>DS List</option>
-                        </select>
-                    </div>
-                    <div class='toolbar-table-right'>
-                        <div class='input-append'>
-                            <input placeholder='Tìm kiếm ...' type="text" class="table-search-input"  data-url="{{route('search')}}">
-                            <button class="btn btn-book-search" type="button">
-                                <span class='icon-search'></span>
-                            </button>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <span>Hiển thị:</span>
+                            <select class="listPurpose" id="sel1" style="margin-top: 5px">  
+                                <option>Tất cả</option>
+                                <option>DS Giám sát</option>
+                                <option>DS List</option>
+                            </select>
+                        </div>
+                        <div class='toolbar-table-right'>
+                            <div class='input-append'>
+                                <input placeholder='Tìm kiếm ...' type="text" class="table-search-input"  data-url="{{route('search')}}">
+                                <button class="btn btn-book-search" type="button">
+                                    <span class='icon-search'></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,20 +118,23 @@
                         <img src="{{asset('img/loading.gif')}}"/>
                         Đang tải . . .
                     </span>
-                    <div class="pull-left">
-                        <span>Số bản ghi tối đa trên một trang:</span>
-                        <select class=" perPage" id="sel1" style="margin-top: 5px">
-                            <option>5</option>
-                            <option>10</option>
-                            <option>20</option>
-                            <option>40</option>
-                        </select>
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <span>Số bản ghi tối đa trên một trang:</span>
+                            <select class=" perPage" id="sel1" style="margin-top: 5px">
+                                <option>5</option>
+                                <option>10</option>
+                                <option>20</option>
+                                <option>40</option>
+                            </select>
+                        </div>
+                        <!--<div class='side fr'>-->
+                        <div class='pull-right pagination'>
+                            {{ $orders->links() }}
+                        </div>
+                        <!--</div>-->
                     </div>
-                    <!--<div class='side fr'>-->
-                    <div class='pull-right pagination'>
-                        {{ $orders->links() }}
-                    </div>
-                    <!--</div>-->
+
                 </div>
             </div>
         </div>

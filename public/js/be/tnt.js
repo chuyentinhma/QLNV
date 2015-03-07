@@ -19,6 +19,10 @@
 		});
 		return false;
 	});
+        $('.statistics-select-time').on('click', function() {
+            console.log('vao day');
+           $('.custom-select-time') .show();
+        });
     var tableHandle = {
 		$tableContainer: $('.table-container'),
 		contanerClass: '.table-container',

@@ -21,9 +21,11 @@
                         <div class="controls-row">
                             <label class="span1">Thời gian</label>
                             <select name="time" class="span2 select2 statistics-select-time">
-                                <option value="day">Hôm nay</option>
+                                
                                 <option value="week" >Tuần này</option>
                                 <option value="month" >Tháng này</option>
+                                <option value="quarter">Quý này</option>
+                                <option value="year">Năm này</option>
                                 <option value="custom" >Khoảng thời gian</option>
                             </select>
                             <button class="btn btn-primary offset1">Xem thống kê</button>
@@ -58,5 +60,6 @@
 <script type="text/javascript" src="{{{asset('js/helper.js')}}}"></script>
 <script type="text/javascript" src="{{{asset('js/app.js')}}}"></script>
 <script type="text/javascript" src="{{{asset('js/be/common.js')}}}"></script>
+<script type="text/javascript" src="{{{asset('js/be/tnt.js')}}}"></script>
 
 @stop
