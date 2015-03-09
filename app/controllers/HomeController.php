@@ -30,11 +30,18 @@ class HomeController extends BaseController {
         
         $today = \Carbon\Carbon::now()->format('Y-m-d');
         $yesterday = \Carbon\Carbon::yesterday()->format('Y-m-d');
-        $totalToday = $this->order->countNewOrder($today);
-        var_dump($totalToday);
-        $totalYesterday = $this->order->countNewOrder($yesterday);
-        $purposes = $this->order->countPurposesOrder($yesterday);
-        return View::make('home.dashboard',  compact('purposes','totalToday','totalYesterday'));
+        $tomorrow = \Carbon\Carbon::tomorrow()->format('Y-m-d');
+        
+        $totalToday = $this->order->countNewOrder($today, $tomorrow);
+        $purposeToday = $this->order->countPurposesOrder($today, $tomorrow);
+        
+        $totalYesterday = $this->order->countNewOrder($yesterday, $today);
+        $purposeYesterday = $this->order->countPurposesOrder($yesterday, $today);
+        
+        $unitYesterday = $this->order->countUnitOrder($yesterday, $today);
+        $unitToday = $this->order->countUnitOrder($today, $tomorrow);
+        
+        return View::make('home.dashboard',  compact('unitToday','unitYesterday','purposeToday','purposeYesterday','totalToday','totalYesterday'));
     }
 
     public function error() {

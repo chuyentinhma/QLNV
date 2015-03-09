@@ -4,9 +4,9 @@
             <div class="span6">
                 <span>Hiển thị:</span>
                 <select class="listPurpose" id="sel1" style="margin-top: 5px">  
-                    <option>Tất cả</option>
-                    <option>DS Giám sát</option>
-                    <option>DS List</option>
+                    <option value="0">Tất cả</option>
+                    <option value="1">DS Giám sát</option>
+                    <option value="2">DS List</option>
                 </select>
             </div>
             <div class='toolbar-table-right'>

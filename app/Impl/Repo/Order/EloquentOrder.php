@@ -109,16 +109,31 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         return $result;
     }
 
-    public function searchName($keysearch, $page = 1, $limit = 10) {
+    public function searchName($keysearch, $purpose, $page = 1, $limit = 10) {
         $result = new \StdClass;
         $result->page = $page;
         $result->limit = $limit;
         $result->totalItems = 0;
         $result->items = array();
         $query = $this->order->orderBy('date_submit', 'desc');
-        
-        if($keysearch != '') {
-            $query = $query->where('customer_name','like','%'.$keysearch.'%');
+
+        if ($keysearch != '') {
+            $query = $query->where('customer_name', 'like', '%' . $keysearch . '%');
+        }
+        switch ($purpose) {
+            // giám sát
+                case 'DS Giám sát': 
+                    $query = $query->whereHas('purposes', function ($q) {
+                        
+                        $q->where('content', '=', 'giám sát');
+                    });
+                    break; 
+                // list
+                case 'DS List':
+                    $query = $query->whereHas('purposes', function ($q) {
+                         $q->where('content', '!=', 'giám sát');
+                    });
+                    break; 
         }
         $result->totalItems = $query->count();
         $orders = $query->skip($limit * ($page - 1))
@@ -242,23 +257,31 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         die;
         $order->purposes()->sync($data['purpose']);
     }
-    public function countNewOrder($time) {
-        
-        return $this->order->where('date_submit','like', '%'.$time.'%')
-                    ->count();
-//        return $this->order->where('purposes.content', '=', 'giám sát')
-//                ->where('date_submit','like', '%'.$time.'%')
-//                ->count();
+
+    public function countNewOrder($timeStart, $timeEnd) {
+
+        return $this->order->whereTime($timeStart, $timeEnd)
+                        ->count();
     }
-    public function countPurposesOrder($time = null) {
-        
-        $a =  $this->order
-                    ->select(\DB::raw('count(purposes.content) as count_name,content'))
-                    ->join('orders_purposes','orders.id','=','orders_purposes.order_id')
-                    ->join('purposes','orders_purposes.purpose_id','=','purposes.id')
-                    ->where('date_submit','like', '%'.$time.'%')
-                    ->groupBy('purposes.content')
-                    ->get();
+
+    public function countPurposesOrder($timeStart, $timeEnd) {
+
+        $a = $this->order->select(\DB::raw('count(purposes.content) as count_name,content'))
+                ->join('orders_purposes', 'orders.id', '=', 'orders_purposes.order_id')
+                ->join('purposes', 'orders_purposes.purpose_id', '=', 'purposes.id')
+                ->whereTime($timeStart, $timeEnd)
+                ->groupBy('purposes.content')
+                ->get();
+        return $a->all();
+    }
+
+    public function countUnitOrder($timeStart, $timeEnd) {
+
+        $a = $this->order->select(\DB::raw('count(units.symbol) as total, symbol'))
+                ->join('units', 'orders.unit_id', '=', 'units.id')
+                ->whereTime($timeStart, $timeEnd)
+                ->groupBy('units.symbol')
+                ->get();
         return $a->all();
     }
 

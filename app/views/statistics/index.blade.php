@@ -17,33 +17,33 @@
         <div class='row-fluid'>
             <div class='block'>
                 <div class='content'>
-                    <div class="row-fluid">
+                    <!--<div class="row-fluid">-->
                         <div class="span1">
-                            <label for="date_begin">Ngày bắt đầu</label>
+                            <label for="start">Từ ngày</label>
                         </div>
                         <div class="span2">
-                            <input class="datepicker" id="date_begin" type="text" name="date_begin">
+                            <input class="datepicker" id="date_begin" type="text" name="start">
                         </div>
                         <div class="span1 offset1">
-                            <label for="date_end">Ngày kết thúc</label>
+                            <label for="end">Đến ngày</label>
                         </div>
                         <div class="span2">
-                             <input class="datepicker" id="date_end" type="text" name="date_end">
+                             <input class="datepicker" id="date_end" type="text" name="end">
                         </div>
                         <div class="span2">
-                            <button class="btn btn-primary offset5">Xem thống kê</button>
+                            <button class="btn btn-primary offset4">Xem thống kê</button>
                         </div>
-                        <div class="span2">
+                        <div class="span3">
                               <a href=""
-                               class="btn btn-success offset0 btn-print"
+                               class="btn btn-success btn-print"
                                target="_blank">
                                 <i class="i-printer"></i> In báo cáo
                             </a>
                         </div>
-                    </div> 
+                    <!--</div>--> 
+                    <div class="clearfix"></div>
                     @include('partials.flash')
                     <hr>
-                    
                 </div>
             </div>
         </div>

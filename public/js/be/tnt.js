@@ -34,12 +34,17 @@
                                 $(this).on('change','.perPage',function() {
                                     $('.table-search-input').trigger('change');
                                 });
+                                // select purpose order
+                                $(this).on('change','.listPurpose', function() {
+                                   $('.table-search-input').trigger('change');
+                                });
                                 //ajax pagination
 				$(this).on('click', '.ajax a', function() {
 					$paging = $(this);
                                         searchParmas = {};
                                         searchParmas.keyword = $('.table-search-input').val();
                                         searchParmas.perPage = $('.perPage :selected').text();
+                                        searchParmas.purpose = $('.listPurpose :selected').text();
 					//call ajax to get html content for paging
 					$.ajax({
 						url: $(this).attr('href'),
@@ -48,6 +53,7 @@
 						success: function(result) {
 							$paging.parents(tableHandle.contanerClass).html(result);
                                                         $(".perPage option:contains("+ searchParmas.perPage + ")").attr('selected', true);
+                                                        $(".listPurpose option:contains("+ searchParmas.purpose + ")").attr('selected', true);
 						},
 						error: function() {
 							bootbox.alert('Đã có lỗi xảy ra, vui lòng đăng nhập lại');
@@ -65,6 +71,7 @@
 					//add keyword to search params
 					searchParmas.keyword = $(this).val();
                                         searchParmas.perPage = $('.perPage :selected').text();
+                                        searchParmas.purpose = $('.listPurpose :selected').text();
                                         console.log(searchParmas);
 					for (k in this.attributes) {
 						//get attributes that need to search, to build paramaters for search query
@@ -82,6 +89,7 @@
 						success: function(result) {
 							$input.parents(tableHandle.contanerClass).html(result);
                                                         $(".perPage option:contains("+ searchParmas.perPage + ")").attr('selected', true);
+                                                        $(".listPurpose option:contains("+ searchParmas.purpose + ")").attr('selected', true);
         
 						},
 						error: function() {

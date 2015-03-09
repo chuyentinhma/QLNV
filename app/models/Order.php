@@ -75,5 +75,11 @@ class Order extends \Eloquent {
         
         return $this->belongsToMany('Purpose', 'orders_purposes', 'order_id', 'purpose_id')->withTimestamps();
     }
+    
+    public function scopeWhereTime($query, $start, $end) {
+        
+        return $query->where('date_submit', '>=', $start)
+                    ->where('date_submit', '<', $end);
+    }
 
 }

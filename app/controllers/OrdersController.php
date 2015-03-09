@@ -154,10 +154,11 @@ class OrdersController extends \BaseController {
         $page = Input::get('page', 1);
         // Candidate for config item
         $perPage = Input::get('perPage', 5);
-        $pagiData = $this->order->searchName($keyword, $page, $perPage);
+        $purpose = Input::get('purpose');
+        $pagiData = $this->order->searchName($keyword, $purpose, $page, $perPage);
         $orders = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);
         
-        return View::make('orders.search')->with(array('orders'=> $orders,'keyword' =>$keyword,'perPage' => $perPage));
+        return View::make('orders.search')->with(array('orders'=> $orders,'keyword' =>$keyword,'perPage' => $perPage, 'purpose' => $purpose));
     }
 
     /**

@@ -28,14 +28,16 @@
                         <ul>
                             <li><b>Yêu cầu mới: {{$totalToday}}</b></li>
                             <ul>
-                                <li>List : </li>
-                                <li>Giám sát: </li>
+                                @foreach($purposeToday as $purpose)
+                                    <li>{{$purpose->content .': '. $purpose->count_name}} </li>
+                                @endforeach
                                 <li>
                                     Trong đó
                                 </li>
                                 <ul>
-                                    <li>PA88:</li>
-                                    <li>PA92:</li>
+                                    @foreach($unitToday as $unit)
+                                    <li>{{$unit->symbol .': '. $unit->total}}</li>
+                                    @endforeach
                                 </ul>
                             </ul>
                             <li><b>Yêu cầu đã giao:</b> </li>
@@ -65,15 +67,16 @@
                         <ul>
                             <li><b>Yêu cầu mới: {{$totalYesterday}}</b> </li>
                             <ul>
-                                @foreach($purposes as $purpose)
+                                @foreach($purposeYesterday as $purpose)
                                 <li>{{$purpose->content .': '. $purpose->count_name}} </li>
                                 @endforeach
                                 <li>
                                     Trong đó
                                 </li>
                                 <ul>
-                                    <li>PA88:</li>
-                                    <li>PA92:</li>
+                                   @foreach($unitYesterday as $unit)
+                                    <li>{{$unit->symbol .': '. $unit->total}}</li>
+                                    @endforeach
                                 </ul>
                             </ul>
                             <li><b>Yêu cầu đã giao:</b> </li>
