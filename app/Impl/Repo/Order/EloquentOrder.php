@@ -122,18 +122,18 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         }
         switch ($purpose) {
             // giám sát
-                case 'DS Giám sát': 
-                    $query = $query->whereHas('purposes', function ($q) {
-                        
-                        $q->where('content', '=', 'giám sát');
-                    });
-                    break; 
-                // list
-                case 'DS List':
-                    $query = $query->whereHas('purposes', function ($q) {
-                         $q->where('content', '!=', 'giám sát');
-                    });
-                    break; 
+            case 'DS Giám sát':
+                $query = $query->whereHas('purposes', function ($q) {
+
+                    $q->where('content', '=', 'giám sát');
+                });
+                break;
+            // list
+            case 'DS List':
+                $query = $query->whereHas('purposes', function ($q) {
+                    $q->where('content', '!=', 'giám sát');
+                });
+                break;
         }
         $result->totalItems = $query->count();
         $orders = $query->skip($limit * ($page - 1))
@@ -150,6 +150,19 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
      * @return boolean
      */
     public function create(array $data) {
+        $fileName = '';
+        $extention = '';
+        if (\Input::hasFile('file')) {
+            $alowedExtension = ['doc', 'docx', 'pdf', 'xls', 'xlsx'];
+            $file = \Input::file('file');
+            $destinationPath = public_path() . '\uploads\orders';
+            $extention = $file->getClientOriginalExtension();
+            $fileName = $this->slug($data['customer_name']) . '_' . \Carbon\Carbon::now()->timestamp . '.' . $extention;
+
+            if (in_array($extention, $alowedExtension)) {
+                $file->move($destinationPath, $fileName);
+            }
+        }
         // Create new the object order
         $this->order->number_cv = $data['number_cv'];
         $this->order->unit_id = $data['unit'];
@@ -167,6 +180,7 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         $this->order->date_begin = $this->formatDateTimes($data['date_begin']);
         $this->order->date_end = $this->formatDateTimes($data['date_end']);
         $this->order->comment = $data['comment'];
+        $this->order->file_attach = $fileName;
 
         if (!$this->order->save()) {
             return false;

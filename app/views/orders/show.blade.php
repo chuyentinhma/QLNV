@@ -11,6 +11,8 @@
     <div class='content'>
         @include('partials.flash')	
         {{$order->customer_name}}
+        <br/>
+        <a href="{{public_path() . '\uploads\orders\\'. $order->file_attach}}" target="_blank">File đính kèm</a>
     </div>
 </div>
 

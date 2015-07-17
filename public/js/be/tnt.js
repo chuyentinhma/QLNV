@@ -1,4 +1,10 @@
 (function ($) {
+    $('#attach').on('focus',function() {
+       $('#file').trigger('click');
+    });
+    $('#file').on('change',function() {
+        $('#attach').val($('input[type=file]').val().replace(/.*(\/|\\)/, ''));
+    });
     $('.checkbox').click(function () {
         if ($('[purpose="giám sát"]').is(':checked'))
             $(".news_number").show();  // checked
@@ -7,7 +13,6 @@
     });
     $('[btn-confirm="confirm"]').on('click', function() {
 		var dataConfirm = $(this).attr('data-confirm');
-		console.log('xoa xoa');
 		if (typeof dataConfirm === "undefined") {
 			dataConfirm = "Bạn có chắc chắn ?";
 		}
@@ -20,7 +25,6 @@
 		return false;
 	});
         $('.statistics-select-time').on('click', function() {
-            console.log('vao day');
            $('.custom-select-time') .show();
         });
     var tableHandle = {

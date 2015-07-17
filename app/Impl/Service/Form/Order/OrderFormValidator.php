@@ -20,6 +20,7 @@ class OrderFormValidator extends AbstractLaravelValidator {
     protected $rules = [
         'created_at' => 'required',
         'customer_name' => 'required',
+        'file' => 'max:5400'
     ];
     
     /**
@@ -29,7 +30,8 @@ class OrderFormValidator extends AbstractLaravelValidator {
      */
     protected $messages = [
         'customer_name' => 'Phải nhập tên đối tượng',
-        'created_at' => 'Chọn ngày yêu cầu'
+        'created_at' => 'Chọn ngày yêu cầu',
+        'file' => 'dung luong file tối đa 5MB'
     ];
     
     

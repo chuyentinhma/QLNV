@@ -33,8 +33,7 @@
                     <h2>Nhập thông tin yêu cầu</h2>
                 </div>
                 <div class='content'>
-
-                    {{ Former::horizontal_open(route('orders.add'))->method('POST')->id('form_order') }}
+                    {{ Former::open_for_files(route('orders.add'))->method('POST')->id('form_order') }}
                     <div class='span5'>
                         {{Former::large_text('created_at')->label('Ngày yêu cầu')->class('datepicker')}}
                         {{Former::large_text('number_cv')->label('Số công văn yêu cầu (*)')}}
@@ -48,7 +47,10 @@
                         {{Former::text('customer_phone_number')->label('Số điện thoại ĐT (*)')->class('select2')->setAttribute('tags', '1')}}
                         {{Former::large_text('order_name')->label('Tên trinh sát(*)')}}
                         {{Former::large_text('order_phone_number')->label('Số điện thoại TS (*)')}}
-
+                        {{Former::file('file')
+                                ->label('Tệp đính kèm')
+                                ->accept('doc', 'docx', 'xls', 'xlsx', 'pdf')
+                        }}
                     </div>
                     <div class='span7'>
                         {{Former::select('category')
@@ -124,6 +126,6 @@
 <script type="text/javascript" src="{{{asset('js/helper.js')}}}"></script>
 <script type="text/javascript" src="{{{asset('js/app.js')}}}"></script>
 <script type="text/javascript" src="{{{asset('js/be/common.js')}}}"></script>
-
+<script type="text/javascript" src="{{{asset('js/be/tnt.js')}}}"></script>
 
 @stop

@@ -35,6 +35,7 @@ class CreateOrdersTable extends Migration {
             $table->integer('number_cv');
             $table->integer('number_cv_pa71');
             $table->text('comment')->nullable();
+            $table->text('file_attach')->nullable();
             $table->string('slug');
             $table->timestamp('date_submit');
             $table->timestamp('date_begin');
