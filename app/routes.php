@@ -52,7 +52,6 @@ Route::group(array('before' => 'auth'), function() {
     
     Route::get('search', array('as' => 'search', 'uses' => 'OrdersController@search'));
     Route::get('statistic', array('as' => 'statistic', 'uses' => 'StatisticsController@index'));
-    
     Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
     
 //    Route::get('setup', array('as' => 'setup', 'uses' => 'HomeController@setupSystem'));

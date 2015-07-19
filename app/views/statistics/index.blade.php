@@ -18,32 +18,39 @@
             <div class='block'>
                 <div class='content'>
                     <!--<div class="row-fluid">-->
-                        <div class="span1">
-                            <label for="start">Từ ngày</label>
-                        </div>
-                        <div class="span2">
-                            <input class="datepicker" id="date_begin" type="text" name="start">
-                        </div>
-                        <div class="span1 offset1">
-                            <label for="end">Đến ngày</label>
-                        </div>
-                        <div class="span2">
-                             <input class="datepicker" id="date_end" type="text" name="end">
-                        </div>
-                        <div class="span2">
-                            <button class="btn btn-primary offset4">Xem thống kê</button>
-                        </div>
-                        <div class="span3">
-                              <a href=""
-                               class="btn btn-success btn-print"
-                               target="_blank">
-                                <i class="i-printer"></i> In báo cáo
-                            </a>
-                        </div>
+                    <div class="span1">
+                        <label for="start">Từ ngày</label>
+                    </div>
+                    <div class="span2">
+                        <input class="datepicker" id="date_begin" type="text" name="start" value="{{Carbon\Carbon::parse($dateStart)->format('d/m/Y')}}">
+                    </div>
+                    <div class="span1 offset1">
+                        <label for="end">Đến ngày</label>
+                    </div>
+                    <div class="span2">
+                        <input class="datepicker" id="date_end" type="text" name="end" value="{{Carbon\Carbon::parse($dateEnd)->format('d/m/Y')}}">
+                    </div>
+                    <div class="span2">
+                        <button class="btn btn-primary offset4 statistics">Xem thống kê</button>
+                    </div>
+                    <div class="span3">
+                        <a href=""
+                           class="btn btn-success btn-print"
+                           target="_blank">
+                            <i class="i-printer"></i> In báo cáo
+                        </a>
+                    </div>
                     <!--</div>--> 
                     <div class="clearfix"></div>
+                    
                     @include('partials.flash')
                     <hr>
+                    <div class='result_statistic'>
+                        
+                           Yêu cầu đã nhận: {{$totalOrder}}
+                            
+                           Yêu cầu đã thực hiện:
+                    </div>
                 </div>
             </div>
         </div>
