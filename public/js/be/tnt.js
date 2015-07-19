@@ -24,9 +24,24 @@
 		});
 		return false;
 	});
-        $('.statistics-select-time').on('click', function() {
-           $('.custom-select-time') .show();
+    $('.statistics').on('click', function() {
+        searchParams = {};
+        searchParams.dateStart = $('#date_begin').val();
+        searchParams.dateEnd = $('#date_end').val();
+        console.log(searchParams);
+        $.ajax({
+            url: 'http://qlyc.local/statistic',
+            data: searchParams,
+            type: 'get',
+            success: function (data, textStatus, jqXHR) {
+                $('.result_statistic').html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log('ajax thong ke co loi');
+            }
+               
         });
+    });
     var tableHandle = {
 		$tableContainer: $('.table-container'),
 		contanerClass: '.table-container',
