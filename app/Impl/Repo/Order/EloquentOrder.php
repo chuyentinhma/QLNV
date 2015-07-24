@@ -14,7 +14,15 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
     public function __construct(Model $order) {
         $this->order = $order;
     }
-
+    
+    /**
+     * Get all Order
+     * @return Array Arrayable collection
+     */
+    public function all() {
+        
+        return $this->order->all();
+    }
     /**
      * Retrieve article by id
      * regardless of status

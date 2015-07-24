@@ -3,19 +3,19 @@
 use Impl\Service\Validation\ValidationException;
 use Impl\Repo\Ship\ShipInterface;
 use Impl\Service\Form\Ship\ShipForm;
-use Impl\Repo\Purpose\PurposeInterface;
+use Impl\Repo\Order\OrderInterface;
 use Impl\Repo\User\UserInterface;
 
 class ShipsController extends \BaseController {
 
-    protected $purpose;
+    protected $order;
     protected $user;
     protected $shipForm;
     protected $ship;
 
-    public function __construct(PurposeInterface $purpose, UserInterface $user, ShipInterface $ship, ShipForm $shipForm) {
+    public function __construct(OrderInterface $order, UserInterface $user, ShipInterface $ship, ShipForm $shipForm) {
 
-        $this->purpose = $purpose;
+        $this->order = $order;
         $this->user = $user;
 
         $this->ship = $ship;
@@ -23,11 +23,11 @@ class ShipsController extends \BaseController {
 
         View::composer(['ships.create', 'ships.edit'], function ($view) {
 
-            $purposes = $this->purpose->formatData($this->purpose->all());
+            $orders = $this->order->all();
             $users = $this->user->formatData($this->user->all());
 
             $view->with(array(
-                'purposes' => $purposes,
+                'orders' => $orders,
                 'users' => $users
             ));
         });

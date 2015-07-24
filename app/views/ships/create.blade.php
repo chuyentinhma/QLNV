@@ -25,7 +25,7 @@
     </div>
     <div class='content'>
         <div class='row-fluid'>
-             @include('partials.flash')
+            @include('partials.flash')
             <div class='span12'>
                 <!-- <div class='span6'>-->
                 <div class='block'>
@@ -33,47 +33,34 @@
                         <h2>Nhập thông tin yêu cầu</h2>
                     </div>
                     <div class='content'>
-
                         {{ Former::horizontal_open(route('ships.store'))->method('POST')->id('form_ship') }}
-                        <div class='span5'>
-                            {{Former::large_text('date_submit')->label('Ngày giao')->class('datepicker')}}
-                            
-                            {{Former::large_text('number_cv_pa71')->label('Số công văn PA71(*)')}}
+                        <div class='span12 offset2'>
+                            <div class="control-group">
+                                <label for="number_cv" class="control-label">Số công văn/Đơn vị</label>
+                                <div class="controls">
+                                    <select class="select2">
+                                        @foreach($orders as $order)
+                                        <optgroup label="{{$order->number_cv . '/' . $order->unit->symbol}}">
+                                            <option>
 
-                            {{Former::large_text('customer_phone_number')->label('Số điện thoại yêu cầu')}}
+                                            </option>
+                                        </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            {{Former::large_text('date_submit')->label('Ngày giao')->class('datepicker')}}
+                            {{Former::large_text('news_number')->label('Số bản tin')}}
+                            {{Former::large_text('page_number')->label('Số trang tin')}}
                             {{Former::select('user_id')
                                 ->label('Người giao')
                                 ->options($users)
                                 ->class('select2')
                             }}
-                           
-                        </div>
-                        <div class='span7'>
-                           
-                            <div class="control-group">
-                                <label for="purpose" class="control-label">Nội dung yêu cầu</label>
-                                <div class="controls">
-                                    <?php foreach ($purposes as $k => $v): ?>
-                                        <label  class="checkbox inline">                                
-                                            <input type="checkbox" name="purpose[]"  purpose="<?php echo $v ?>" value="<?php echo $k ?>"><?php echo $v ?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                            <div class="control-group news_number"  style="display: none">
-                                <label for="news_number" class="control-label">Số bản tin</label>
-                                <div class="controls">
-                                    <input class="input-large" id="news_number" type="text" name="news_number">
-                                </div>
-                                
-                            </div>
-                            {{Former::large_text('page_number')->label('Số trang tin')}}
                             {{Former::large_text('receive_name')->label('Người nhận')}}
                         </div>
                     </div>
                 </div>
-                <!--    </div>-->
-
             </div>
             <div class="space"></div>
             <div class='footer'>
