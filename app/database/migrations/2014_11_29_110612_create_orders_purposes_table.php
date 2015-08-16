@@ -18,6 +18,7 @@ class CreateOrdersPurposesTable extends Migration {
                         $table->integer('order_id');
                         $table->integer('purpose_id');
 			$table->timestamps();
+                        $table->softDeletes();
 		});
 	}
 

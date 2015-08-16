@@ -51,7 +51,7 @@
                                 
                                 <th>Người giao</th>
                                 <th style='width:11%'>Người nhận</th>
-                                <th>Thao tác</th>
+                                <th style="width: 8%">Thao tác</th>
                             </tr>
                         </thead>
                         <tbody>

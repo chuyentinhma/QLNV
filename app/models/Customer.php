@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Customer extends \Eloquent {
 
@@ -7,6 +8,7 @@ class Customer extends \Eloquent {
      *
      * @var string
      */
+    use SoftDeletingTrait;
     protected $table = 'customers';
     
     // Add your validation rules here
@@ -18,7 +20,9 @@ class Customer extends \Eloquent {
         'phone_number',
         'status'
     ];
-    
+    protected $dates = ['deleted_at'];
+
+
     /**
      * Define a one-to-many relationship.
      *

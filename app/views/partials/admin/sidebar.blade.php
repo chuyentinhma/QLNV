@@ -37,10 +37,16 @@
             <a href='#'>Sổ thực hiện yêu cầu</a>
             <ul>
                 <li class=''>
-                    <a href='{{route('ships.index')}}'>Chi tiết...</a>
+                    <a href='{{route('ships.index')}}'>Sổ List - XMCTB</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('ships.create')}}'>Cập nhật yêu cầu đã thực hiện</a>
+                    <a href='{{route('ships.index')}}'>Sổ GS</a>
+                </li>
+                <li class=''>
+                    <a href='{{route('ships.create')}}'>Giao List - XMCTB</a>
+                </li>
+                <li class=''>
+                    <a href='{{route('ships.create')}}'>Giao tin</a>
                 </li>
             </ul>
         </li>

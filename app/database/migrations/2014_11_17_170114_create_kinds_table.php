@@ -18,6 +18,7 @@ class CreateKindsTable extends Migration {
                         $table->string('symbol')->unique();
                         $table->string('description')->nullable();
 			$table->timestamps();
+                        $table->softDeletes();
 		});
 	}
 

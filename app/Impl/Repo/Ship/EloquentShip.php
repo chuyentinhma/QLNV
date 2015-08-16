@@ -116,7 +116,6 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
     public function create(array $data) {
         // Create new the object ship
         $this->ship->date_submit = $this->formatDateTimes($data['date_submit']);
-        $this->ship->number_cv_pa71 = $data['number_cv_pa71'];
         $this->ship->customer_id = $data['customer_id'];
         $this->ship->user_id = $data['user_id'];
         $this->ship->receive_name = $data['receive_name'];
@@ -126,61 +125,34 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
         if (!$this->ship->save()) {
             return false;
         }
-
+        // update status colunm on Customer table
+        $customer = \Customer::find($data['customer_id']);
+        $customer->status = 'ok';
+        $customer->save();
         return true;
     }
 
     /**
-     * Update an existing Article
+     * Update an existing Ship
      *
      * @param array  Data to update an Article
      * @return boolean
      */
     public function update(array $data) {
 
-        $ship = $this->ship->find($data['id']);
-
-        $ship->number_cv = $data['number_cv'];
-        $ship->unit_id = $data['unit'];
-
-        $ship->number_cv_pa71 = $data['number_cv_pa71'];
-        $ship->customer_name = $data['customer_name'];
-
-        $ship->ship_name = $data['ship_name'];
-        $ship->ship_phone = $data['ship_phone_number'];
-
-        $ship->category_id = $data['category'];
-        $ship->kind_id = $data['kind'];
-        $ship->user_id = $data['user_get'];
-        $ship->date_submit = $this->formatDateTimes($data['created_at']);
-        $ship->date_begin = $this->formatDateTimes($data['date_begin']);
-        $ship->date_end = $this->formatDateTimes($data['date_end']);
-        $ship->comment = $data['comment'];
+        $ship = $this->ship->find($data['id']); 
+        
+        $ship->user_id = $data['user_id'];
+        $ship->date_submit = $this->formatDateTimes($data['date_submit']);
+        $ship->customer_id = $data['customer_id'];
+        $ship->receive_name = $data['receive_name'];
+        $ship->news_number = $data['news_number'];
+        $ship->page_number = $data['page_number'];
         $ship->save();
-
-        $this->syncDataRelation($ship, $data);
 
         return true;
     }
-
-    /**
-     * Sync data for customers an ships_purposes
-     *
-     * @param \Illuminate\Database\Eloquent\Model  $ship
-     * @param array  $data from input request
-     * @return void
-     */
-    protected function syncDataRelation(Model $ship, array $data) {
-
-        $phoneNumber = explode(',', $data['customer_phone_number']);
-        foreach ($phoneNumber as $phone) {
-            $customer = new \Customer(array('phone_number' => $phone));
-            $ship->customers()->save($customer);
-        }
-
-        $ship->purposes()->sync($data['purpose']);
-    }
-
+    
     /**
      * Get total ships count
      *

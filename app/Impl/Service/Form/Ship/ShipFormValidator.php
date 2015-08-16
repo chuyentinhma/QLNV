@@ -19,7 +19,7 @@ class ShipFormValidator extends AbstractLaravelValidator {
      */
     protected $rules = [
         'date_submit' => 'required',
-        'number_cv_pa71' => 'required',
+        'page_number' => 'required'
     ];
     
     /**
@@ -29,7 +29,7 @@ class ShipFormValidator extends AbstractLaravelValidator {
      */
     protected $messages = [
         'date_submit' => 'Phải nhập ngày giao',
-        'number_cv_pa71' => 'Phải nhập số công văn'
+        'page_number' => 'Phải nhập số trang'
     ];
     
     

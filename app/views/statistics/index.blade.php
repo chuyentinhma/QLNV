@@ -31,7 +31,7 @@
                         <input class="datepicker" id="date_end" type="text" name="end" value="{{Carbon\Carbon::parse($dateEnd)->format('d/m/Y')}}">
                     </div>
                     <div class="span2">
-                        <button class="btn btn-primary offset4 statistics">Xem thống kê</button>
+                        <button class="btn btn-primary offset4 statistics" data_url = "{{URL::to('statistic')}}">Xem thống kê</button>
                     </div>
                     <div class="span3">
                         <a href=""

@@ -51,7 +51,7 @@
                                     
                                     $customer_phone .=  $customer->phone_number . ',';
                                 }
-                                $customer_phone = rtrim($customer_phone, ",")
+                                $customer_phone = trim($customer_phone, ",")
                             ?>
                             {{Former::text('customer_phone_number')->label('Số điện thoại ĐT (*)')->class('select2')->setAttribute('tags', '1')->value($customer_phone)->disabled()}}
                             {{Former::large_text('order_name')->label('Tên trinh sát(*)')->value($order->order_name)}}

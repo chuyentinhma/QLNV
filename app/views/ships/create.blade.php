@@ -36,22 +36,29 @@
                         {{ Former::horizontal_open(route('ships.store'))->method('POST')->id('form_ship') }}
                         <div class='span12 offset2'>
                             <div class="control-group">
-                                <label for="number_cv" class="control-label">Số công văn/Đơn vị</label>
+                                <label for="customer_id" class="control-label">Số công văn - Thuê bao</label>
                                 <div class="controls">
-                                    <select class="select2">
+                                    <select class="select2" id="customer_id" name="customer_id">
                                         @foreach($orders as $order)
                                         <optgroup label="{{$order->number_cv . '/' . $order->unit->symbol}}">
-                                            <option>
-
-                                            </option>
+                                            @foreach ($order->customers as $index => $customer)
+                                                    <option value="{{$customer->id}}">
+                                                        {{ $customer->phone_number }}
+                                                    </option>
+                                            @endforeach
                                         </optgroup>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
                             {{Former::large_text('date_submit')->label('Ngày giao')->class('datepicker')}}
+                            {{Former::large_text('cv_pa71')->label('Số công văn PA71')}}
                             {{Former::large_text('news_number')->label('Số bản tin')}}
                             {{Former::large_text('page_number')->label('Số trang tin')}}
+                            {{Former::file('file')
+                                ->label('Tệp đính kèm')
+                                ->accept('doc', 'docx', 'xls', 'xlsx', 'pdf')
+                            }}
                             {{Former::select('user_id')
                                 ->label('Người giao')
                                 ->options($users)

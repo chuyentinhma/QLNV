@@ -11,7 +11,7 @@ class CreateShipsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('ships', function(Blueprint $table) {
+        Schema::create('ships_news', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')
@@ -22,11 +22,11 @@ class CreateShipsTable extends Migration {
                     ->references('id')->on('customers')
                     ->onDelete('cascade');
             $table->string('receive_name');
-            $table->string('receive_phone');
             $table->integer('number_cv_pa71');
             $table->integer('page_number');
             $table->integer('news_number');
             $table->timestamp('date_submit');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -37,7 +37,7 @@ class CreateShipsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('ships');
+        Schema::drop('ships_news');
     }
 
 }

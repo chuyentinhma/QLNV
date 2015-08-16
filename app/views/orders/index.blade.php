@@ -74,11 +74,10 @@
                                 <td rowspan="{{count($order->customers)}}"><a href="{{ URL::to('orders/show/' . $order->id ) }}">{{$order->customer_name}}</a></td>
                                 <td>
                                     @foreach ($order->customers as $index => $customer)
-                                    @if(++$index <= 1)
-                                    {{ $customer->phone_number }}
-                                    @endif
+                                        @if(++$index <= 1)
+                                            {{ $customer->phone_number }}
+                                        @endif
                                     @endforeach
-
                                 </td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->category->symbol}}</td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->kind->symbol}}</td>
@@ -89,7 +88,21 @@
                                     @endforeach
                                 </td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->order_name . '/ '. $order->order_phone}}</td>
-                                <td></td>
+                                <td>
+                                    @foreach ($order->customers as $index => $customer)
+                                        @if(++$index <= 1)
+                                            @if($customer->status == "ok")
+                                                <a class="btn btn-success btn-mini">
+                                                    <i class="icon-ok"></i>
+                                                </a>
+                                            @elseif($customer->status == "close") 
+                                                <a class="btn btn-danger btn-mini">
+                                                    <i class="icon-remove"></i>
+                                                </a>
+                                            @endif
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td rowspan="{{count($order->customers)}}">{{$order->comment}}</td>
                                 <td class="text-center" rowspan="{{count($order->customers)}}">
                                     <a class="btn btn-warning btn-mini" href="{{route('orders.edit',$order->id)}}" title="Sửa">
@@ -105,7 +118,17 @@
                             @if(++$index > 1)
                             <tr>
                                 <td>{{$customer->phone_number}}</td>
-                                <td></td>
+                                <td>
+                                    @if($customer->status == "ok")
+                                        <a class="btn btn-success btn-mini">
+                                            <i class="icon-ok"></i>
+                                        </a>
+                                    @elseif($customer->status == "close") 
+                                        <a class="btn btn-danger btn-mini">
+                                            <i class="icon-remove"></i>
+                                        </a>
+                                    @endif
+                                </td>
                             </tr>
                             @endif
                             @endforeach

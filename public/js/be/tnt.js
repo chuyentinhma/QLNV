@@ -30,7 +30,7 @@
         searchParams.dateEnd = $('#date_end').val();
         console.log(searchParams);
         $.ajax({
-            url: 'http://qlnv.local/statistic',
+            url: $(this).attr('data_url'),
             data: searchParams,
             type: 'get',
             success: function (data, textStatus, jqXHR) {

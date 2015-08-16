@@ -195,7 +195,7 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         }
         $phoneNumber = explode(',', $data['customer_phone_number']);
         foreach ($phoneNumber as $phone) {
-            $customer = new \Customer(array('phone_number' => $phone));
+            $customer = new \Customer(array('phone_number' => $phone, 'status' => 'new'));
             $this->order->customers()->save($customer);
         }
         $this->order->purposes()->sync($data['purpose']);

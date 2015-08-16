@@ -1,7 +1,9 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Order extends \Eloquent {
 
+    use SoftDeletingTrait;
     /**
      * The database table used by the model.
      *
@@ -16,6 +18,7 @@ class Order extends \Eloquent {
     
     // Don't forget to fill this array
     protected $fillable = [];
+    protected $dates = ['deleted_at'];
     
     /**
      * Define a many-to-one relationship

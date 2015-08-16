@@ -1,7 +1,9 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Purpose extends \Eloquent {
 
+    use SoftDeletingTrait;
     /**
      * The database table used by the model.
      *
@@ -15,6 +17,7 @@ class Purpose extends \Eloquent {
     ];
     // Don't forget to fill this array
     protected $fillable = [];
+    protected $dates = ['deleted_at'];
     
     /**
      * Define a many-to-many relationship.

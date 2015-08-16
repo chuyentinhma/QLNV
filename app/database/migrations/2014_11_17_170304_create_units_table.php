@@ -19,6 +19,7 @@ class CreateUnitsTable extends Migration {
                         $table->string('name');
                         $table->string('block');
 			$table->timestamps();
+                        $table->softDeletes();
 		});
 	}
 

@@ -69,7 +69,6 @@ class ShipsController extends \BaseController {
     public function store() {
         // Form processing
         try {
-
             $this->shipForm->create(Input::all());
             if (Input::get('redirect') == '1') {
 //                // coutinue
@@ -115,16 +114,17 @@ class ShipsController extends \BaseController {
      * @return Response
      */
     public function update($id) {
-        $ship = Ship::findOrFail($id);
 
-        $validator = Validator::make($data = Input::all(), Ship::$rules);
+        $input = array_merge(Input::all(), array('id' => $id));
+        try {
+            
+            $this->shipForm->update($input);
+            
+        } catch (ValidationException $ex) {
+            
+            return Redirect::back()->withInput()->withErrors($ex->getErrors());
 
-        if ($validator->fails()) {
-            return Redirect::back()->withErrors($validator)->withInput();
         }
-
-        $ship->update($data);
-
         return Redirect::route('ships.index');
     }
 
@@ -136,7 +136,12 @@ class ShipsController extends \BaseController {
      */
     public function destroy($id) {
         
-        Ship::destroy($id);
+        $ship = Ship::find($id);
+        $customer = Customer::find($ship->customer_id);
+        $customer->status = 'new';
+        $customer->save();
+        
+        $ship->delete();
         
         return Redirect::back();
     }

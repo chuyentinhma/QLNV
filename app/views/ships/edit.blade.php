@@ -35,59 +35,50 @@
                     <div class='content'>
 
                         {{ Former::horizontal_open(route('ships.edit',$ship->id))->method('POST')->id('form_ship_update') }}
-                        <div class='span5'>
+                        <div class='span12 offset2'>
+                            <div class="control-group">
+                                <label for="customer_id" class="control-label">Số công văn - Thuê bao</label>
+                                <div class="controls">
+                                    <select class="select2" id="customer_id" name="customer_id">
+                                        @foreach($orders as $order)
+                                        <optgroup label="{{$order->number_cv . '/' . $order->unit->symbol}}">
+                                            @foreach ($order->customers as $index => $customer)
+                                                @if($ship->customer_id == $customer->id)
+                                                    <option value="{{$customer->id}}" selected="">
+                                                        {{ $customer->phone_number }}
+                                                    </option>
+                                                @else
+                                                    <option value="{{$customer->id}}">
+                                                        {{ $customer->phone_number }}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </optgroup>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             {{Former::large_text('date_submit')
                                         ->label('Ngày giao')
                                         ->class('datepicker')
                                         ->value(\Carbon\Carbon::parse($ship->date_submit)->format('d/m/Y'))
                             }}
-
-                            {{Former::large_text('number_cv_pa71')
-                                        ->label('Số công văn PA71(*)')
-                                        ->value($ship->number_cv_pa71)
+                            {{Former::large_text('news_number')
+                                        ->label('Số bản tin')
+                                        ->value($ship->news_number)
                             }}
-
-                            {{Former::large_text('customer_phone_number')
-                                        ->label('Số điện thoại yêu cầu')
-                                        ->value($ship->customer->phone_number)
+                            {{Former::large_text('page_number')
+                                        ->label('Số trang tin')
+                                        ->value($ship->page_number)
+                            }}
+                            {{Former::file('file')
+                                ->label('Tệp đính kèm')
+                                ->accept('doc', 'docx', 'xls', 'xlsx', 'pdf')
                             }}
                             {{Former::select('user_id')
                                 ->label('Người giao')
                                 ->options($users)
                                 ->class('select2',$ship->user->username)
-                            }}
-
-                        </div>
-                        <div class='span7'>
-
-                            <div class="control-group">
-                                <label for="purpose" class="control-label">Nội dung yêu cầu</label>
-                                <div class="controls">
-                                    <?php foreach ($purposes as $k => $v): ?>
-                                        <label  class="checkbox inline">                                
-                                            <input type="checkbox" name="purpose[]"  purpose="<?php echo $v ?>" value="<?php echo $k ?>"
-                                            @foreach ($ship->customer->order->purposes as $purpose) 
-                                                @if ($k == $purpose->id) 
-                                                    {{"checked"}}
-                                                    break;
-                                                @endif
-                                            @endforeach
-                                                   >
-                                                   <?php echo $v ?>
-                                        </label>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                            <div class="control-group news_number"  style="display: none">
-                                <label for="news_number" class="control-label">Số bản tin</label>
-                                <div class="controls">
-                                    <input class="input-large" id="news_number" type="text" name="news_number" value="{{$ship->news_number}}">
-                                </div>
-
-                            </div>
-                            {{Former::large_text('page_number')
-                                        ->label('Số trang tin')
-                                        ->value($ship->page_number)
                             }}
                             {{Former::large_text('receive_name')
                                         ->label('Người nhận')
@@ -107,13 +98,9 @@
                         <i class='i-ccw'></i>
                         Nhập lại
                     </button>
-                    <button class='btn btn-success btn-save-book' name="redirect" value="1" type="submit">
+                    <button class='btn btn-success btn-save-book' type="submit">
                         <i class='i-checkmark-2'></i>
-                        Lưu và tiếp tục
-                    </button>
-                    <button class='btn btn-primary btn-save-book' name="redirect" value="0" type="submit" onclick="if(!confirm('Are you sure to delete this item?')){return false;};">
-                        <i class='icon-book'></i>
-                        Lưu và trở lại danh sách
+                        Lưu
                     </button>
                 </div>
             </div>
