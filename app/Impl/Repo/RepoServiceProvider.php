@@ -6,9 +6,11 @@ use Kind;
 use Category;
 use Unit;
 use Purpose;
-use Ship;
+use ShipsList;
+use ShipsNew;
 use Impl\Repo\Order\EloquentOrder;
-use Impl\Repo\Ship\EloquentShip;
+use Impl\Repo\ShipsList\EloquentShipsList;
+use Impl\Repo\ShipsNew\EloquentShipsNew;
 use Impl\Repo\User\EloquentUser;
 use Impl\Repo\Unit\EloquentUnit;
 use Impl\Repo\Kind\EloquentKind;
@@ -65,10 +67,16 @@ class RepoServiceProvider extends ServiceProvider {
                 new Purpose
             );
         });
-        $app->bind('Impl\Repo\Ship\ShipInterface', function($app)
+        $app->bind('Impl\Repo\ShipsList\ShipsListInterface', function($app)
         {
-            return new EloquentShip(
-                new Ship
+            return new EloquentShipsList(
+                new ShipsList
+            );
+        });
+        $app->bind('Impl\Repo\ShipsNew\ShipsNewInterface', function($app)
+        {
+            return new EloquentShipsNew(
+                new ShipsNew
             );
         });
     }

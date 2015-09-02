@@ -19,9 +19,33 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
      * Get all Order
      * @return Array Arrayable collection
      */
-    public function all() {
+    public function all($purpose = '') {
+
+        $query = $this->order->orderBy('date_submit','desc');
         
-        return $this->order->all();
+        switch ($purpose) {
+            case 'list':
+                $query = $query->with(['unit', 'customers' => function($q) {
+                    $q->where('status', '<>', 'ok');
+                }])
+                    ->whereHas('purposes', function ($p) {
+                    $p->where('content', '<>', 'giám sát');
+                });
+                break;
+            case 'giam_sat':
+                $query = $query->with(['unit', 'customers' => function($q) {
+                    $q->where('status', '=', 'ok');
+                }])
+                    ->whereHas('purposes', function ($q) {
+
+                    $q->where('content', '=', 'giám sát');
+                });
+                break; 
+        }
+        $orders = $query->get();
+        $result = $orders->all();
+
+        return $result;
     }
     /**
      * Retrieve article by id
@@ -49,8 +73,8 @@ class EloquentOrder extends RepoAbstract implements OrderInterface {
         $result->totalItems = 0;
         $result->items = array();
 
-        $query = $this->order->orderBy('date_submit', 'desc');
-
+        $query = $this->order->with(['unit', 'kind', 'user', 'category', 'customers', 'purposes'])
+                    ->orderBy('date_submit', 'desc');
         if (!$all) {
             $query->where('status_id', 1);
         }

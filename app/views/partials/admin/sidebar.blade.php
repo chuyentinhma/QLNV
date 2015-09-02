@@ -37,16 +37,16 @@
             <a href='#'>Sổ thực hiện yêu cầu</a>
             <ul>
                 <li class=''>
-                    <a href='{{route('ships.index')}}'>Sổ List - XMCTB</a>
+                    <a href='{{route('shipslists.index')}}'>Sổ List - XMCTB</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('ships.index')}}'>Sổ GS</a>
+                    <a href='{{route('shipsnews.index')}}'>Sổ GS</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('ships.create')}}'>Giao List - XMCTB</a>
+                    <a href='{{route('shipslists.create')}}'>Giao List - XMCTB</a>
                 </li>
                 <li class=''>
-                    <a href='{{route('ships.create')}}'>Giao tin</a>
+                    <a href='{{route('shipsnews.create')}}'>Giao tin</a>
                 </li>
             </ul>
         </li>

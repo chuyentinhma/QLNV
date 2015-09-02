@@ -5,12 +5,7 @@
     $('#file').on('change',function() {
         $('#attach').val($('input[type=file]').val().replace(/.*(\/|\\)/, ''));
     });
-    $('.checkbox').click(function () {
-        if ($('[purpose="giám sát"]').is(':checked'))
-            $(".news_number").show();  // checked
-        else
-            $(".news_number").hide();
-    });
+
     $('[btn-confirm="confirm"]').on('click', function() {
 		var dataConfirm = $(this).attr('data-confirm');
 		if (typeof dataConfirm === "undefined") {

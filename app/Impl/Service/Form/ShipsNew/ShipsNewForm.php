@@ -6,15 +6,15 @@
  * and open the template in the editor.
  */
 
-namespace Impl\Service\Form\Ship;
+namespace Impl\Service\Form\ShipsNew;
 
 use Impl\Service\Validation\ValidableInterface;
 use Impl\Service\Validation\AbstractLaravelValidator;
-use Impl\Repo\Ship\ShipInterface;
+use Impl\Repo\ShipsNew\ShipsNewInterface;
 use Impl\Repo\Order\OrderInterface;
 use Impl\Service\Validation\ValidationException;
 
-class ShipForm extends AbstractLaravelValidator {
+class ShipsNewForm extends AbstractLaravelValidator {
 
     /**
      * Form data
@@ -35,7 +35,7 @@ class ShipForm extends AbstractLaravelValidator {
      * 
      * @var Object \Impl\Repo\Ship\ShipInterface;
      */
-    public $ship;
+    public $shipsNew;
     public $order;
 
     /**
@@ -43,10 +43,10 @@ class ShipForm extends AbstractLaravelValidator {
      * @param ValidableInterface $validator
      * @param OrderInterface $ship
      */
-    public function __construct(ValidableInterface $validator, ShipInterface $ship, OrderInterface $order) {
+    public function __construct(ValidableInterface $validator, ShipsNewInterface $shipsNew, OrderInterface $order) {
 
         $this->validator = $validator;
-        $this->ship = $ship;
+        $this->shipsNew = $shipsNew;
         $this->order = $order;
     }
 
@@ -59,7 +59,8 @@ class ShipForm extends AbstractLaravelValidator {
     public function create(array $input) {
 
         if ($this->validate($input)) {
-            return $this->ship->create($input);
+            
+            return $this->shipsNew->create($input);
         }
 
         return false;
@@ -75,7 +76,7 @@ class ShipForm extends AbstractLaravelValidator {
 
         if ($this->validate($input)) {
 
-            return $this->ship->update($input);
+            return $this->shipsNew->update($input);
         }
 
         return false;

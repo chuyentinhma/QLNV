@@ -1,17 +1,18 @@
 <?php
 
-namespace Impl\Repo\Ship;
+namespace Impl\Repo\ShipsNew;
 
 use Impl\Repo\RepoAbstract;
 use Illuminate\Database\Eloquent\Model;
 
-class EloquentShip extends RepoAbstract implements ShipInterface {
+class EloquentShipsNew extends RepoAbstract implements ShipsNewInterface {
 
-    protected $ship;
+    protected $shipsNew;
 
     // Class expects an Eloquent model
-    public function __construct(Model $ship) {
-        $this->ship = $ship;
+    public function __construct(Model $shipsNew) {
+        
+        $this->shipsNew = $shipsNew;
     }
 
     /**
@@ -22,7 +23,8 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
      * @return stdObject object of article information
      */
     public function byId($id) {
-        return $this->ship->find($id);
+        
+        return $this->shipsNew->find($id);
     }
 
     /**
@@ -39,18 +41,18 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
         $result->limit = $limit;
         $result->totalItems = 0;
         $result->items = array();
-        $query = $this->ship->with('customer.order','user')
+        $query = $this->shipsNew->with('customer.order','user')
                     ->orderBy('created_at', 'desc');
         if (!$all) {
             $query->where('status_id', 1);
         }
 
-        $ships = $query->skip($limit * ($page - 1))
+        $news = $query->skip($limit * ($page - 1))
                 ->take($limit)
                 ->get();
 
         $result->totalItems = $this->totalOrders($all);
-        $result->items = $ships->all();
+        $result->items = $news->all();
 
         return $result;
     }
@@ -64,7 +66,7 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
     public function byStatus($status = false) {
         $result = new \StdClass;
         $result->items = array();
-        $query = $this->ship->orderBy('created_at', 'desc');
+        $query = $this->shipsNew->orderBy('created_at', 'desc');
         if (!$status) {
             $query->where('status', 1);
         }
@@ -115,14 +117,15 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
      */
     public function create(array $data) {
         // Create new the object ship
-        $this->ship->date_submit = $this->formatDateTimes($data['date_submit']);
-        $this->ship->customer_id = $data['customer_id'];
-        $this->ship->user_id = $data['user_id'];
-        $this->ship->receive_name = $data['receive_name'];
-        $this->ship->news_number = $data['news_number'];
-        $this->ship->page_number = $data['page_number'];
+        $this->shipsNew->user_id = $data['user_id'];
+        $this->shipsNew->customer_id = $data['customer_id'];
+        $this->shipsNew->receive_name = $data['receive_name'];
+        $this->shipsNew->number_cv_pa71 = $data['number_cv_pa71'];
+        $this->shipsNew->news_number = $data['news_number'];
+        $this->shipsNew->page_number = $data['page_number'];
+        $this->shipsNew->date_submit = $this->formatDateTimes($data['date_submit']);
 
-        if (!$this->ship->save()) {
+        if (!$this->shipsNew->save()) {
             return false;
         }
         // update status colunm on Customer table
@@ -139,16 +142,16 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
      * @return boolean
      */
     public function update(array $data) {
-
-        $ship = $this->ship->find($data['id']); 
         
-        $ship->user_id = $data['user_id'];
-        $ship->date_submit = $this->formatDateTimes($data['date_submit']);
-        $ship->customer_id = $data['customer_id'];
-        $ship->receive_name = $data['receive_name'];
-        $ship->news_number = $data['news_number'];
-        $ship->page_number = $data['page_number'];
-        $ship->save();
+        $shipsNew = $this->byId($data['id']); 
+        $shipsNew->user_id = $data['user_id'];
+        $shipsNew->date_submit = $this->formatDateTimes($data['date_submit']);
+        $shipsNew->number_cv_pa71 = $data['number_cv_pa71'];
+        $shipsNew->customer_id = $data['customer_id'];
+        $shipsNew->receive_name = $data['receive_name'];
+        $shipsNew->news_number = $data['news_number'];
+        $shipsNew->page_number = $data['page_number'];
+        $shipsNew->save();
 
         return true;
     }
@@ -162,10 +165,10 @@ class EloquentShip extends RepoAbstract implements ShipInterface {
      */
     protected function totalOrders($all = false) {
         if (!$all) {
-            return $this->ship->where('status_id', 1)->count();
+            return $this->shipsNew->where('status_id', 1)->count();
         }
 
-        return $this->ship->count();
+        return $this->shipsNew->count();
     }
 
     /**

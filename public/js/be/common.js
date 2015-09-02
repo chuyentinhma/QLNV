@@ -26,7 +26,7 @@ $(function() {
                 formatNoMatches: function() {
                     return '';
                 }
-            }
+            };
         }
         $(this).select2(options);
     });

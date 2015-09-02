@@ -3,8 +3,10 @@
 use Illuminate\Support\ServiceProvider;
 use Impl\Service\Form\Order\OrderForm;
 use Impl\Service\Form\Order\OrderFormValidator;
-use Impl\Service\Form\Ship\ShipForm;
-use Impl\Service\Form\Ship\ShipFormValidator;
+use Impl\Service\Form\ShipsList\ShipsListForm;
+use Impl\Service\Form\ShipsList\ShipsListFormValidator;
+use Impl\Service\Form\ShipsNew\ShipsNewForm;
+use Impl\Service\Form\ShipsNew\ShipsNewFormValidator;
 use Impl\Service\Form\Unit\UnitFormValidator;
 use Impl\Service\Form\Unit\UnitForm;
 use Impl\Service\Form\Category\CategoryFormValidator;
@@ -31,9 +33,14 @@ class FormServiceProvider extends ServiceProvider {
             return new OrderForm(new OrderFormValidator($app['validator']), $app->make('Impl\Repo\Order\OrderInterface'));
             
         });
-        $app->bind('Impl\Service\Form\Ship\ShipForm', function($app)
+        $app->bind('Impl\Service\Form\ShipsList\ShipsListForm', function($app)
         {
-            return new ShipForm(new ShipFormValidator($app['validator']), $app->make('Impl\Repo\Ship\ShipInterface'), $app->make('Impl\Repo\Order\OrderInterface'));
+            return new ShipsListForm(new ShipsListFormValidator($app['validator']), $app->make('Impl\Repo\ShipsList\ShipsListInterface'), $app->make('Impl\Repo\Order\OrderInterface'));
+            
+        });
+        $app->bind('Impl\Service\Form\ShipsNew\ShipsNewForm', function($app)
+        {
+            return new ShipsNewForm(new ShipsNewFormValidator($app['validator']), $app->make('Impl\Repo\ShipsNew\ShipsNewInterface'), $app->make('Impl\Repo\Order\OrderInterface'));
             
         });
         $app->bind('Impl\Service\Form\Unit\UnitForm', function($app)

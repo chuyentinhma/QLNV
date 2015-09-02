@@ -23,7 +23,7 @@ class UnitsController extends \BaseController {
     public function index() {
         $page = Input::get('page', 1);
         // Candidate for config item
-        $perPage = 3;
+        $perPage = 10;
 
         $pagiData = $this->unit->byPage($page, $perPage);
         $units = Paginator::make($pagiData->items, $pagiData->totalItems, $perPage);

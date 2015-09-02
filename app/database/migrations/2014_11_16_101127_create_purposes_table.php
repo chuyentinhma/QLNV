@@ -16,6 +16,7 @@ class CreatePurposesTable extends Migration {
 		{
 			$table->increments('id');
                         $table->string('content')->unique();
+                        $table->string('group');
                         $table->text('comment')->nullable();
 			$table->timestamps();
                         $table->softDeletes();

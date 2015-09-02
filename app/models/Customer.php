@@ -34,8 +34,13 @@ class Customer extends \Eloquent {
         
     }
     
-    public function ships() {
+    public function shipsNews() {
        
-        return $this->hasMany('Ship');
+        return $this->hasMany('ShipsNew');
+    }
+    
+    public function shipsLists() {
+        
+        return $this->hasOne('ShipsList');
     }
 }

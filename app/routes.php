@@ -38,18 +38,21 @@ Route::group(array('before' => 'auth'), function() {
     
     Route::get('orders/delete/{id}', array('as' => 'orders.delete', 'uses' => 'OrdersController@destroy'));
       
-    Route::get('ships/index', array('as' => 'ships.index', 'uses' => 'ShipsController@index'));
-    
-    Route::get('ships/create', array('as' => 'ships.create', 'uses' => 'ShipsController@create'));
-    
-    Route::post('ships/create', array('as' => 'ships.store', 'uses' => 'ShipsController@store'));
-    
-    Route::get('ships/edit/{id}', array('as' => 'ships.edit', 'uses' => 'ShipsController@edit'));
-    
-    Route::post('ships/edit/{id}', array('as' => 'ships.edit', 'uses' => 'ShipsController@update'));
-    
-    Route::get('ships/delete/{id}', array('as' => 'ships.delete', 'uses' => 'ShipsController@destroy'));
-    
+//    Route::get('ships/index', array('as' => 'ships.index', 'uses' => 'ShipsController@index'));
+//    
+//    Route::get('ships/create', array('as' => 'ships.create', 'uses' => 'ShipsController@create'));
+//    
+//    Route::post('ships/create', array('as' => 'ships.store', 'uses' => 'ShipsController@store'));
+//    
+//    Route::get('ships/edit/{id}', array('as' => 'ships.edit', 'uses' => 'ShipsController@edit'));
+//    
+//    Route::post('ships/edit/{id}', array('as' => 'ships.edit', 'uses' => 'ShipsController@update'));
+//    
+//    Route::get('ships/delete/{id}', array('as' => 'ships.delete', 'uses' => 'ShipsController@destroy'));
+    Route::resource('shipslists', 'ShipsListsController');
+    Route::get('shipslists/delete/{id}', array('as' => 'shipslists.delete', 'uses' => 'ShipsListsController@destroy'));
+    Route::resource('shipsnews', 'ShipsNewsController');
+    Route::get('shipsnews/delete/{id}', array('as' => 'shipsnews.delete', 'uses' => 'ShipsNewsController@destroy'));
     Route::get('search', array('as' => 'search', 'uses' => 'OrdersController@search'));
     Route::get('statistic', array('as' => 'statistic', 'uses' => 'StatisticsController@index'));
     Route::get('logout', array('as' => 'logout', 'uses' => 'UserController@logout'));
