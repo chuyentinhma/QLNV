@@ -42,11 +42,11 @@
                                 ->options($units)
                                 ->class('select2')
                         }}
-                        {{Former::large_text('number_cv_pa71')->label('Số công văn PA71(*)')}}
+                        {{Former::large_text('number_cv_pa71')->label('Số công văn PA71 (*)')}}
                         {{Former::large_text('customer_name')->label('Tên đối tượng (*)')}}
                         {{Former::text('customer_phone_number')->label('Số điện thoại ĐT (*)')->class('select2')->setAttribute('tags', '1')}}
-                        {{Former::large_text('order_name')->label('Tên trinh sát(*)')}}
-                        {{Former::large_text('order_phone_number')->label('Số điện thoại TS (*)')}}
+                        {{Former::large_text('order_name')->label('Tên trinh sát')}}
+                        {{Former::large_text('order_phone_number')->label('Số điện thoại TS')}}
                         {{Former::file('file')
                                 ->label('Tệp đính kèm')
                                 ->accept('doc', 'docx', 'xls', 'xlsx', 'pdf')
@@ -73,8 +73,8 @@
                                 <?php endforeach; ?>
                             </div>
                         </div>
-                        {{Former::large_text('date_begin')->label('Ngày bắt đầu')->class('datepicker')}}
-                        {{Former::large_text('date_end')->label('Ngày kết thúc')->class('datepicker')}}
+                        {{Former::large_text('date_begin')->label('Ngày bắt đầu (*)')->class('datepicker')}}
+                        {{Former::large_text('date_end')->label('Ngày kết thúc (*)')->class('datepicker')}}
                         {{Former::select('user_get')
                                 ->label('Người nhận yêu cầu')
                                 ->options($users)
