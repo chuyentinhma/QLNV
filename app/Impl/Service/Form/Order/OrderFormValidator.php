@@ -20,8 +20,8 @@ class OrderFormValidator extends AbstractLaravelValidator {
     protected $rules = [
         'created_at' => 'required',
         'number_cv' => 'required',
-        'number_cv_pa71' => 'rquired',
-//        'purpose[]' => 'required',
+        'number_cv_pa71' => 'required',
+        'purpose[]' => 'required',
         'customer_name' => 'required',
         'date_begin' => 'required',
         'date_end' => 'required',
@@ -34,11 +34,11 @@ class OrderFormValidator extends AbstractLaravelValidator {
      * @var Array
      */
     protected $messages = [
-        'customer_name' => 'Phải nhập tên đối tượng',
         'created_at' => 'Chọn ngày yêu cầu',
         'number_cv' => 'Nhập số công văn đơn vị yêu cầu',
         'number_cv_pa71' => 'Nhập số công văn PA 71',
-//        'purpose' => 'Chọn mục đích yêu cầu',
+        'customer_name' => 'Phải nhập tên đối tượng',
+        'purpose[]' => 'Chọn mục đích yêu cầu',
         'date_begin' => 'Nhập ngày bắt đầu',
         'date_end' => 'Nhập ngày kết thúc',
         'file' => 'dung luong file tối đa 5MB'
